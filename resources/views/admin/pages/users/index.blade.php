@@ -36,7 +36,7 @@
                         <th>Role</th>
                         <th>CPF</th>
                         <th>Created at</th>
-                        <th>Status</th>
+                        <th>Assinatura</th>
                         <th class="text-right">Actions</th>
                     </tr>
                 </thead>
@@ -44,7 +44,9 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>
-                                <img src="{{ $user->profile->avatar ?? asset('img/avatar.png') }}" alt="avatar" class="img-circle img-size-32 mr-2">
+                                <img src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/avatar.png') }}"
+                                    alt="avatar"
+                                    class="img-circle img-size-32 mr-2">
                                 {{ $user->name }}
                             </td>
                             <td>{{ $user->email }}</td>
@@ -56,8 +58,8 @@
                             <td>{{ $user->profile->cpf_formated }}</td>
                             <td>{{ $user->created_at_formated }}</td>
                             <td>
-                                <span class="badge {{ $user->deleted_at ? 'bg-red' : 'bg-success' }}">
-                                    {{ $user->deleted_at ? 'Inativo' : 'Ativo' }}
+                                <span class="badge {{ $user->subscribed('default') ? 'bg-success' : 'bg-gray' }}">
+                                    {{ $user->subscribed('default') ? 'Ativo' : 'Inativo' }}
                                 </span>
                             </td>
                             <td class="project-actions text-right">

@@ -41,6 +41,31 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="">Name on card:</label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                        value="{{ $user->name ?? old('name') }}">
+
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="">Email:</label>
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                        value="{{ $user->email ?? old('email') }}" disabled>
+
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="">Card information:</label>
                     <div id="card-element" class="form-control"></div>
                 </div>
 

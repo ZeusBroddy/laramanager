@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
+use Laravel\Cashier\Subscription;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -55,6 +56,7 @@ class User extends Authenticatable
             $user->profile()->create([
                 'user_id' => $user->id,
                 'country' => 'BR',
+                'state' => 'RO',
             ]);
         });
     }
@@ -64,6 +66,11 @@ class User extends Authenticatable
         return $this->role == 'admin';
     }
 
+    /**
+     * Get the profile from this user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function profile()
     {
         return $this->hasOne(Profile::class);

@@ -70,7 +70,7 @@ Route::prefix('admin')
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/user/profile,', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/user/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('subscriptions/invoice/{id}', [SubscriptionController::class, 'downloadInvoice'])->name('subscriptions.invoice.download');
     Route::post('subscriptions/store', [SubscriptionController::class, 'store'])->name('subscriptions.store');

@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->repository->withTrashed()->with('profile')->get();
+        $users = $this->repository->withTrashed()->with('profile', 'subscriptions')->get();
 
         return view('admin.pages.users.index', compact('users'));
     }

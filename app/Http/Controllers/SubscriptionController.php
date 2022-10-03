@@ -6,29 +6,10 @@ use App\Models\Plan;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
 
+use function PHPUnit\Framework\isNull;
+
 class SubscriptionController extends Controller
 {
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -55,52 +36,10 @@ class SubscriptionController extends Controller
                 ->newSubscription('default', $request->price_id)
                 ->create($request->token);
 
-        return redirect()->route('dashboard');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('dashboard')->with([
+            'alert-type' => 'success',
+            'message' => 'Assinatura criada com sucesso!'
+        ]);
     }
 
     /**
@@ -109,22 +48,32 @@ class SubscriptionController extends Controller
      */
     public function checkout()
     {
-        $profile = auth()->user()->profile()->first();
-        if ($profile->address == null) {
+        $user = auth()->user();
+        if ($user->profile->address == null) {
             return redirect()->route('profile.edit')->with([
                 'alert-type' => 'info',
                 'message' => 'Para fazer a assinatura, você deve preencher os dados do seu perfil.'
             ]);
         }
 
+        // VERIFICA SE O USUÁRIO JÁ TEM ASSINATURA
         if (auth()->user()->subscribed('default')) {
             return redirect()->route('subscriptions.account');
         }
 
         $products = StripeController::products();
 
+        // SE NÃO TIVER PLANO CADASTRO, RETORNA PARA O DASHBOARD
+        if(!$products) {
+            return redirect()->route('dashboard')->with([
+                'alert-type' => 'info',
+                'message' => 'Nenhum plano disponível para assinatura.'
+            ]);
+        }
+
         return view('subscription.checkout', [
             'products' => $products,
+            'user' => $user,
             'intent' => auth()->user()->createSetupIntent(),
         ]);
     }

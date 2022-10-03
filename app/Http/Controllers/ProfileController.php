@@ -4,20 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -44,7 +35,32 @@ class ProfileController extends Controller
             return redirect()->back();
         }
 
-        $user->profile->update($request->all());
+        if ($request->avatar) {
+            try {
+                $avatarPath = $request->avatar->store('profile', 'public');
+                $avatar = Image::make(public_path("storage/{$avatarPath}"))->fit(800, 800);
+                $avatar->save();
+                $avatarArray = ['avatar' => $avatarPath];
+            } catch (\Intervention\Image\Exception\ImageException $th) {
+                return redirect()->back()->with([
+                    'alert-type' => 'error',
+                    'message' => $th
+                ]);
+            }
+
+
+            // VERIFICAR SE O USUÁRIO JÁ POSSUI IMAGEM E EXCLUI
+            if ($user->profile->avatar) {
+                Storage::delete("public/{$user->profile->avatar}");
+            }
+        }
+
+        $user->profile->update(array_merge([
+            'address' => $request->address,
+            'city' => $request->city,
+            'postal_code' => $request->postal_code,
+            'phone_number' => $request->phone_number
+        ], $avatarArray ?? []));
 
         return redirect()->route('profile.edit')->with([
             'alert-type' => 'success',

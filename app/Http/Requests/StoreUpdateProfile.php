@@ -25,11 +25,10 @@ class StoreUpdateProfile extends FormRequest
     {
         return [
             'address' => ['required', 'string', 'max:255'],
-            'country' => ['required', 'string', 'min:2', 'max:2'],
             'city' => ['required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'min:8' ,'max:8'],
-            'state' => ['required', 'uf', 'min:2', 'max:2'],
-            'phone_number' => ['required', 'string', 'min:11', 'max:11']
+            'phone_number' => ['required', 'string', 'min:11', 'max:11'],
+            'avatar' => ['nullable', 'image']
         ];
     }
 }

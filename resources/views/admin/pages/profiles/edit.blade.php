@@ -24,7 +24,8 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                         <img class="profile-user-img img-fluid img-circle"
-                            src="{{ $user->profile->avatar ?? asset('img/avatar5.png') }}" alt="User profile picture">
+                            src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/avatar.png') }}"
+                            alt="User profile picture">
                     </div>
 
                     <h3 class="profile-username text-center">{{ $user->name }}</h3>
@@ -36,7 +37,7 @@
         </div>
 
         <div class="col-md-9">
-            <form action="{{ route('profile.update') }}" class="form" method="POST">
+            <form action="{{ route('profile.update') }}" class="form" enctype="multipart/form-data" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -90,7 +91,7 @@
                         <div class="form-group row">
                             <div class="col-6">
                                 <label for="">Country:</label>
-                                <input type="text" name="country"
+                                <input type="text" name="country" disabled
                                     class="form-control @error('country') is-invalid @enderror"
                                     value="{{ $user->profile->country ?? old('country') }}">
 
@@ -103,7 +104,7 @@
 
                             <div class="col-6">
                                 <label for="">State:</label>
-                                <input type="text" name="state"
+                                <input type="text" name="state" disabled
                                     class="form-control @error('state') is-invalid @enderror"
                                     value="{{ $user->profile->state ?? old('state') }}">
 
@@ -128,6 +129,33 @@
                             @enderror
                         </div>
 
+                        {{-- <div class="form-group">
+                            <label for="">Profile Image</label>
+                            <input type="file" class="form-control-file" name="avatar">
+
+                            @error('avatar')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div> --}}
+
+                        <div class="form-group">
+                            <label for="exampleInputFile">User Avatar:</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input @error('avatar') is-invalid @enderror"
+                                        id="exampleInputFile" name="avatar">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                </div>
+                            </div>
+                            @error('avatar')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -136,60 +164,13 @@
             </form>
         </div>
 
-        {{-- <div class="col-md-12">
-            <form action="{{ route('profile.update') }}" class="form" method="POST">
-                @csrf
-                @method('PUT')
-
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Billing Information</h3>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="form-group">
-                            <label for="">Address:</label>
-                            <input type="text" name="address" class="form-control"
-                                value="{{ $user->profile->address ?? old('address') }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">Country:</label>
-                            <input type="text" name="country" class="form-control"
-                                value="{{ $user->profile->country ?? old('country') }}">
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-6">
-                                <label for="">City:</label>
-                                <input type="text" name="city" class="form-control"
-                                    value="{{ $user->profile->city ?? old('city') }}">
-                            </div>
-
-                            <div class="col-6">
-                                <label for="">Postal Code:</label>
-                                <input type="text" name="postal_code" class="form-control"
-                                    value="{{ $user->profile->postal_code ?? old('postal_code') }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">State:</label>
-                            <input type="text" name="state" class="form-control"
-                                value="{{ $user->profile->state ?? old('state') }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">Phone Number:</label>
-                            <input type="text" name="phone_number" class="form-control"
-                                value="{{ $user->profile->phone_number ?? old('phone_number') }}">
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </div>
-            </form>
-        </div> --}}
     </div>
+@stop
+
+@section('js')
+    <script>
+        $(function() {
+            bsCustomFileInput.init();
+        });
+    </script>
 @stop

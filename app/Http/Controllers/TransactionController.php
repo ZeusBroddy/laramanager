@@ -40,15 +40,15 @@ class TransactionController extends Controller
 
         $items = [];
         foreach ($response['data'] as $invoice) :
-            $key = $invoice->id;
+            $key = $invoice['id'];
             $items[$key] = [];
-            $items[$key]['id']   = $invoice->id;
-            $items[$key]['name'] = $invoice->customer_name;
-            $items[$key]['email'] = $invoice->customer_email;
-            $items[$key]['total'] = Cashier::formatAmount($invoice->total, 'brl');
-            $items[$key]['paid_at'] = Carbon::createFromTimestampUTC($invoice->status_transitions->paid_at)->format('d M H:i');
-            $items[$key]['paid'] = $invoice->paid;
-            $items[$key]['pdf'] = $invoice->invoice_pdf;
+            $items[$key]['id']   = $invoice['id'];
+            $items[$key]['name'] = $invoice['customer_name'];
+            $items[$key]['email'] = $invoice['customer_email'];
+            $items[$key]['total'] = Cashier::formatAmount($invoice['total'], 'brl');
+            $items[$key]['paid_at'] = Carbon::createFromTimestampUTC($invoice['status_transitions']['paid_at'])->format('d M Y H:i');
+            $items[$key]['paid'] = $invoice['paid'];
+            $items[$key]['pdf'] = $invoice['invoice_pdf'];
         endforeach;
 
         return view('admin.pages.transactions.index', compact('items'));
