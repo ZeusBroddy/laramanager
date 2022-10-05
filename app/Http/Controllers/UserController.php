@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateUser;
+use App\Models\University;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,9 +21,6 @@ class UserController extends Controller
     public function __construct(User $user)
     {
         $this->repository = $user;
-
-        // $user->factory()->count(15)->create();
-
         $this->middleware('can:isAdmin');
     }
 
@@ -33,7 +31,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->repository->withTrashed()->with('profile', 'subscriptions')->get();
+        $users = $this->repository->withTrashed()->with('profile.university', 'subscriptions')->get();
 
         return view('admin.pages.users.index', compact('users'));
     }
@@ -45,7 +43,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.users.create');
+        $universities = University::get();
+
+        return view('admin.pages.users.create', compact('universities'));
     }
 
     /**
@@ -64,6 +64,7 @@ class UserController extends Controller
         ]);
 
         $user->profile->update([
+            'university_id' => $request->university_id,
             'cpf' => $request->cpf
         ]);
 
@@ -82,8 +83,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = $this->repository->findOrFail($id);
+        $universities = University::get();
 
-        return view('admin.pages.users.edit', compact('user'));
+        return view('admin.pages.users.edit', compact('user', 'universities'));
     }
 
     /**
@@ -104,6 +106,7 @@ class UserController extends Controller
         ]);
 
         $user->profile->update([
+            'university_id' => $request->university_id,
             'cpf' => $request->cpf
         ]);
 

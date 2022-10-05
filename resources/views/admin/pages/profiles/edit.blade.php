@@ -24,7 +24,7 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                         <img class="profile-user-img img-fluid img-circle"
-                            src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/avatar.png') }}"
+                            src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/profile/avatar.png') }}"
                             alt="User profile picture">
                     </div>
 

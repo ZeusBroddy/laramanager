@@ -381,6 +381,25 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Routes',
+            'icon'    => 'fas fa-fw fa-share',
+            'can' => 'isAdmin',
+            'submenu' => [
+                [
+                    'text' => 'Paths',
+                    'url'  => 'admin/paths',
+                    'icon' => 'far fa-fw fa-file',
+                    'can' => 'isAdmin',
+                ],
+                [
+                    'text' => 'Universities',
+                    'url'  => 'admin/universities',
+                    'icon' => 'far fa-fw fa-file',
+                    'can' => 'isAdmin',
+                ],
+            ],
+        ],
 
         // [
         //     'type' => 'sidebar-menu-search',
@@ -536,12 +555,12 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/chart.js/Chart.bundle.min.js',
                 ],
             ],
         ],

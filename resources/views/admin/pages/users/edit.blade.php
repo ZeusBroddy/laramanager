@@ -65,16 +65,39 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="">CPF:</label>
-                    <input type="text" name="cpf" class="form-control @error('cpf') is-invalid @enderror"
-                        placeholder="Type cpf" value="{{ $user->profile->cpf ?? old('cpf') }}">
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label for="">CPF:</label>
+                        <input type="text" name="cpf" class="form-control @error('cpf') is-invalid @enderror"
+                            placeholder="Type cpf" value="{{ $user->profile->cpf ?? old('cpf') }}">
 
-                    @error('cpf')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                        @error('cpf')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-6">
+                        <label for="">Universidade:</label>
+                        <select name="university_id"
+                            class="form-control select2 @error('university_id') is-invalid @enderror">
+                            @foreach ($universities as $university)
+                                <option value="{{ $university->id }}"
+                                    @isset($user)
+                                        {{ $user->profile->university_id == $university->id ? 'selected' : '' }}
+                                    @endisset>
+                                    {{ $university->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('university_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                 </div>
 
             </div>

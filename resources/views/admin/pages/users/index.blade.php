@@ -37,6 +37,7 @@
                         <th>CPF</th>
                         <th>Created at</th>
                         <th>Assinatura</th>
+                        <th>Faculdade</th>
                         <th class="text-right">Actions</th>
                     </tr>
                 </thead>
@@ -44,7 +45,7 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>
-                                <img src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/avatar.png') }}"
+                                <img src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/profile/avatar.png') }}"
                                     alt="avatar"
                                     class="img-circle img-size-32 mr-2">
                                 {{ $user->name }}
@@ -62,6 +63,7 @@
                                     {{ $user->subscribed('default') ? 'Ativo' : 'Inativo' }}
                                 </span>
                             </td>
+                            <td>{{ $user->profile->university->name }}</td>
                             <td class="project-actions text-right">
                                 @if (!$user->deleted_at)
                                     <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user->id) }}"><i

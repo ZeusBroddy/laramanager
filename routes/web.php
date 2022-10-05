@@ -3,10 +3,12 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LedgerController;
+use App\Http\Controllers\PathController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,26 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')
         ->middleware(['auth'])
         ->group(function () {
+
+    /**
+     * Universites Routes
+     */
+    Route::get('universities/{id}/edit', [UniversityController::class, 'edit'])->name('universities.edit');
+    Route::put('universities/{id}', [UniversityController::class, 'update'])->name('universities.update');
+    Route::delete('universities/{id}', [UniversityController::class, 'destroy'])->name('universities.destroy');
+    Route::get('universities/create', [UniversityController::class, 'create'])->name('universities.create');
+    Route::post('universities', [UniversityController::class, 'store'])->name('universities.store');
+    Route::get('universities', [UniversityController::class, 'index'])->name('universities.index');
+
+    /**
+     * Paths Routes
+     */
+    Route::get('paths/{id}/edit', [PathController::class, 'edit'])->name('paths.edit');
+    Route::put('paths/{id}', [PathController::class, 'update'])->name('paths.update');
+    Route::delete('paths/{id}', [PathController::class, 'destroy'])->name('paths.destroy');
+    Route::get('paths/create', [PathController::class, 'create'])->name('paths.create');
+    Route::post('paths', [PathController::class, 'store'])->name('paths.store');
+    Route::get('paths', [PathController::class, 'index'])->name('paths.index');
 
     /**
      * Ledger Routes
@@ -47,6 +69,14 @@ Route::prefix('admin')
     Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
 
     /**
+     * Plans Routes
+     */
+    Route::delete('plans/{id}', [PlanController::class, 'destroy'])->name('plans.destroy');
+    Route::get('plans/create', [PlanController::class, 'create'])->name('plans.create');
+    Route::get('plans', [PlanController::class, 'index'])->name('plans.index');
+    Route::post('plans', [PlanController::class, 'store'])->name('plans.store');
+
+    /**
      * Users Routes
      */
     Route::get('users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
@@ -58,24 +88,16 @@ Route::prefix('admin')
     Route::post('users', [UserController::class, 'store'])->name('users.store');
 
     Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
-
-    /**
-     * Plans Routes
-     */
-    Route::delete('plans/{id}', [PlanController::class, 'destroy'])->name('plans.destroy');
-    Route::get('plans/create', [PlanController::class, 'create'])->name('plans.create');
-    Route::get('plans', [PlanController::class, 'index'])->name('plans.index');
-    Route::post('plans', [PlanController::class, 'store'])->name('plans.store');
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/user/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/user/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('user/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('user/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('subscriptions/invoice/{id}', [SubscriptionController::class, 'downloadInvoice'])->name('subscriptions.invoice.download');
     Route::post('subscriptions/store', [SubscriptionController::class, 'store'])->name('subscriptions.store');
-    Route::get('/subscriptions/account', [SubscriptionController::class, 'account'])->name('subscriptions.account');
-    Route::get('/subscriptions/checkout', [SubscriptionController::class, 'checkout'])->name('subscriptions.checkout');
+    Route::get('subscriptions/account', [SubscriptionController::class, 'account'])->name('subscriptions.account');
+    Route::get('subscriptions/checkout', [SubscriptionController::class, 'checkout'])->name('subscriptions.checkout');
 
     /**
      * Dashboard Routes

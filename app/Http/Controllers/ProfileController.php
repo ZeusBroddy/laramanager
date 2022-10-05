@@ -37,9 +37,7 @@ class ProfileController extends Controller
 
         if ($request->avatar) {
             try {
-                $avatarPath = $request->avatar->store('profile', 'public');
-                $avatar = Image::make(public_path("storage/{$avatarPath}"))->fit(800, 800);
-                $avatar->save();
+                $avatarPath = $request->avatar->store('profiles', 'public');
                 $avatarArray = ['avatar' => $avatarPath];
             } catch (\Intervention\Image\Exception\ImageException $th) {
                 return redirect()->back()->with([
@@ -48,8 +46,7 @@ class ProfileController extends Controller
                 ]);
             }
 
-
-            // VERIFICAR SE O USUÁRIO JÁ POSSUI IMAGEM E EXCLUI
+            // EXCLUI A IMAGEM CASO TENHA
             if ($user->profile->avatar) {
                 Storage::delete("public/{$user->profile->avatar}");
             }

@@ -13,21 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('universities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('university_id')->default(1);
+            $table->unsignedBigInteger('path_id');
+            $table->string('name')->unique();
             $table->string('avatar')->nullable();
-            $table->string('cpf')->nullable();
             $table->string('address')->nullable();
-            $table->string('state')->nullable();
+            $table->string('district')->nullable();
             $table->string('city')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('country')->nullable();
-            $table->string('phone_number')->nullable();
             $table->timestamps();
 
-            $table->index('user_id');
+            $table->foreign('path_id')
+                ->references('id')
+                ->on('paths')
+                ->onDelete('cascade');
         });
     }
 
@@ -38,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('universities');
     }
 };
