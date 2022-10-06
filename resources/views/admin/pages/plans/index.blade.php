@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', config('app.name') . ' - ' . __('adminlte::menu.plans'))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>All Plans</h1>
+            <h1>{{ __('adminlte::menu.plans') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">All Plans</li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('adminlte::menu.dashboard') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('adminlte::menu.plans') }}</li>
             </ol>
         </div>
     </div>
@@ -19,10 +19,10 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Plans</h3>
+            <h3 class="card-title">Planos</h3>
 
             <div class="card-tools">
-                <a href="{{ route('plans.create') }}" class="btn btn-tool">
+                <a href="{{ route('plans.create') }}" class="btn btn-tool" title="Novo">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
@@ -31,13 +31,13 @@
             <table class="table table-responsive-md table-striped" id="plans-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Nome</th>
                         <th>Stripe Plan ID</th>
                         <th>Stripe Product ID</th>
-                        <th>Amount</th>
-                        <th>Interval</th>
+                        <th>Valor</th>
+                        <th>Intervalo</th>
                         <th>Status</th>
-                        <th class="text-right">Actions</th>
+                        <th class="text-right">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,13 +50,14 @@
                             <td>{{ $plan->interval }}</td>
                             <td>
                                 <span class="badge {{ $plan->status == 'active' ? 'bg-success' : 'bg-red' }}">
-                                    {{ $plan->status }}
+                                    {{ $plan->status == 'active' ? 'ativo' : 'inativo' }}
                                 </span>
                             </td>
                             <td class="project-actions text-right">
                                 <a class="btn btn-danger btn-sm" href="{{ route('plans.destroy', $plan->id) }}"
+                                    title="Remover"
                                     onclick="event.preventDefault();
-                                document.getElementById('plan-destroy{{ $plan->id }}').submit();">
+                                    document.getElementById('plan-destroy{{ $plan->id }}').submit();">
                                     <i class="fas fa-trash"></i>
                                 </a>
                                 <form action="{{ route('plans.destroy', $plan->id) }}" class="d-none"
@@ -75,8 +76,11 @@
     <!-- /.card -->
 @stop
 
-@section('js')
+@section('footer')
+    @include('admin.components.footer')
+@stop
 
+@section('js')
     <script>
         $(function() {
             $("#plans-table").DataTable({

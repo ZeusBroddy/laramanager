@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', config('app.name') . ' - ' . __('adminlte::menu.profile'))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Profile Settings</h1>
+            <h1>{{ __('adminlte::menu.profile') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">Profile Settings</li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('adminlte::menu.dashboard') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('adminlte::menu.profile') }}</li>
             </ol>
         </div>
     </div>
@@ -43,15 +43,15 @@
 
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Billing Information</h3>
+                        <h3 class="card-title">Informações</h3>
                     </div>
 
                     <div class="card-body">
 
                         <div class="form-group">
-                            <label for="">Address:</label>
+                            <label for="">Endereço:</label>
                             <input type="text" name="address" class="form-control @error('address') is-invalid @enderror"
-                                value="{{ $user->profile->address ?? old('address') }}">
+                                placeholder="Av São Paulo, 4121" value="{{ $user->profile->address ?? old('address') }}">
 
                             @error('address')
                                 <span class="invalid-feedback" role="alert">
@@ -62,10 +62,10 @@
 
                         <div class="form-group row">
                             <div class="col-6">
-                                <label for="">City:</label>
+                                <label for="">Cidade:</label>
                                 <input type="text" name="city"
                                     class="form-control @error('city') is-invalid @enderror"
-                                    value="{{ $user->profile->city ?? old('city') }}">
+                                    placeholder="Ministro Andreazza" value="{{ $user->profile->city ?? old('city') }}">
 
                                 @error('city')
                                     <span class="invalid-feedback" role="alert">
@@ -75,10 +75,10 @@
                             </div>
 
                             <div class="col-6">
-                                <label for="">Postal Code:</label>
+                                <label for="">CEP:</label>
                                 <input type="text" name="postal_code"
                                     class="form-control @error('postal_code') is-invalid @enderror"
-                                    value="{{ $user->profile->postal_code ?? old('postal_code') }}">
+                                    placeholder="76919000" value="{{ $user->profile->postal_code ?? old('postal_code') }}">
 
                                 @error('postal_code')
                                     <span class="invalid-feedback" role="alert">
@@ -90,7 +90,7 @@
 
                         <div class="form-group row">
                             <div class="col-6">
-                                <label for="">Country:</label>
+                                <label for="">País:</label>
                                 <input type="text" name="country" disabled
                                     class="form-control @error('country') is-invalid @enderror"
                                     value="{{ $user->profile->country ?? old('country') }}">
@@ -103,7 +103,7 @@
                             </div>
 
                             <div class="col-6">
-                                <label for="">State:</label>
+                                <label for="">Estado:</label>
                                 <input type="text" name="state" disabled
                                     class="form-control @error('state') is-invalid @enderror"
                                     value="{{ $user->profile->state ?? old('state') }}">
@@ -117,10 +117,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="">Phone Number:</label>
+                            <label for="">Telefone:</label>
                             <input type="text" name="phone_number"
                                 class="form-control @error('phone_number') is-invalid @enderror"
-                                value="{{ $user->profile->phone_number ?? old('phone_number') }}">
+                                placeholder="69911111111" value="{{ $user->profile->phone_number ?? old('phone_number') }}">
 
                             @error('phone_number')
                                 <span class="invalid-feedback" role="alert">
@@ -129,24 +129,13 @@
                             @enderror
                         </div>
 
-                        {{-- <div class="form-group">
-                            <label for="">Profile Image</label>
-                            <input type="file" class="form-control-file" name="avatar">
-
-                            @error('avatar')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div> --}}
-
                         <div class="form-group">
-                            <label for="exampleInputFile">User Avatar:</label>
+                            <label for="exampleInputFile">Foto:</label>
                             <div class="input-group">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input @error('avatar') is-invalid @enderror"
                                         id="exampleInputFile" name="avatar">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    <label class="custom-file-label" for="exampleInputFile">Selecionar Arquivo</label>
                                 </div>
                             </div>
                             @error('avatar')
@@ -158,13 +147,17 @@
 
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
                     </div>
                 </div>
             </form>
         </div>
 
     </div>
+@stop
+
+@section('footer')
+    @include('admin.components.footer')
 @stop
 
 @section('js')

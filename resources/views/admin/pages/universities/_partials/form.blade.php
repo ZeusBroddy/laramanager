@@ -1,7 +1,7 @@
 <div class="card-body">
 
     <div class="form-group">
-        <label for="">Path:</label>
+        <label for="">Rota:</label>
         <select name="path_id" class="form-control select2 @error('path_id') is-invalid @enderror">
             @foreach ($paths as $path)
                 <option value="{{ $path->id }}"
@@ -21,9 +21,9 @@
     </div>
 
     <div class="form-group">
-        <label for="">University name:</label>
+        <label for="">Nome:</label>
         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-            placeholder="Type university name" value="{{ $university->name ?? old('name') }}">
+            placeholder="UNIR" value="{{ $university->name ?? old('name') }}">
 
         @error('name')
             <span class="invalid-feedback" role="alert">
@@ -34,9 +34,9 @@
 
     <div class="form-group row">
         <div class="col-6">
-            <label for="">Address:</label>
+            <label for="">Endereço:</label>
             <input type="text" name="address" class="form-control @error('address') is-invalid @enderror"
-                value="{{ $university->address ?? old('address') }}">
+                placeholder="Av São Paulo, 1111" value="{{ $university->address ?? old('address') }}">
 
             @error('address')
                 <span class="invalid-feedback" role="alert">
@@ -46,9 +46,9 @@
         </div>
 
         <div class="col-6">
-            <label for="">District:</label>
+            <label for="">Bairro:</label>
             <input type="text" name="district" class="form-control @error('district') is-invalid @enderror"
-                value="{{ $university->district ?? old('district') }}">
+                placeholder="Centro" value="{{ $university->district ?? old('district') }}">
 
             @error('district')
                 <span class="invalid-feedback" role="alert">
@@ -60,9 +60,9 @@
 
     <div class="form-group row">
         <div class="col-6">
-            <label for="">City:</label>
+            <label for="">Cidade:</label>
             <input type="text" name="city" class="form-control @error('city') is-invalid @enderror"
-                value="{{ $university->city ?? old('city') }}">
+                placeholder="Cacoal" value="{{ $university->city ?? old('city') }}">
 
             @error('city')
                 <span class="invalid-feedback" role="alert">
@@ -72,12 +72,12 @@
         </div>
 
         <div class="col-6">
-            <label for="exampleInputFile">University Logo:</label>
+            <label for="inputLogo">Logo da Faculdade:</label>
             <div class="input-group">
                 <div class="custom-file">
                     <input type="file" class="custom-file-input @error('avatar') is-invalid @enderror"
-                        id="exampleInputFile" name="avatar">
-                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        id="inputLogo" name="avatar">
+                    <label class="custom-file-label" for="inputLogo">Selecionar Arquivo</label>
                 </div>
             </div>
 
@@ -91,12 +91,14 @@
 
 </div>
 
+<div class="card-footer">
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</div>
+
 @section('js')
     <script>
         $(function() {
             bsCustomFileInput.init();
-        });
-        $(function() {
             $('.select2').select2();
         });
     </script>

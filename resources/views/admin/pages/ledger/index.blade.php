@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', config('app.name') . ' - ' . __('adminlte::menu.ledger'))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>All Incomes and Expenses</h1>
+            <h1>{{ __('adminlte::menu.ledger') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">Ledger</li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('adminlte::menu.dashboard') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('adminlte::menu.ledger') }}</li>
             </ol>
         </div>
     </div>
@@ -19,10 +19,10 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Ledger</h3>
+            <h3 class="card-title">Financeiro</h3>
 
             <div class="card-tools">
-                <a href="{{ route('ledger.create') }}" class="btn btn-tool">
+                <a href="{{ route('ledger.create') }}" class="btn btn-tool" title="Novo">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
@@ -31,12 +31,12 @@
             <table class="table table-responsive-md table-striped" id="users-table">
                 <thead>
                     <tr>
-                        <th>Category</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th class="text-right">Actions</th>
+                        <th>Categoria</th>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th class="text-right">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,17 +45,18 @@
                             <td>{{ $entry->category->name }}</td>
                             <td>
                                 <span class="badge {{ $entry->type == 'income' ? 'bg-success' : 'bg-red' }}">
-                                    {{ $entry->type }}
+                                    {{ $entry->type == 'income' ? 'receita' : 'despesa' }}
                                 </span>
                             </td>
                             <td>{{ $entry->description }}</td>
                             <td>{{ $entry->amount }}</td>
-                            <td>{{ $entry->date }}</td>
+                            <td>{{ $entry->date_formated }}</td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm" href="{{ route('ledger.edit', $entry->id) }}">
-                                    <i class="fas fa-pencil-alt"></i>
+                                <a class="btn btn-info btn-sm" href="{{ route('ledger.edit', $entry->id) }}"
+                                    title="Editar"><i class="fas fa-pencil-alt"></i>
                                 </a>
                                 <a class="btn btn-danger btn-sm" href="{{ route('ledger.destroy', $entry->id) }}"
+                                    title="Remover"
                                     onclick="event.preventDefault();
                                     document.getElementById('entry-destroy{{ $entry->id }}').submit();">
                                     <i class="fas fa-trash"></i>
@@ -74,6 +75,10 @@
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
+@stop
+
+@section('footer')
+    @include('admin.components.footer')
 @stop
 
 @section('js')

@@ -1,9 +1,8 @@
 <div class="card-body">
-
     <div class="form-group">
-        <label for="">Category name:</label>
+        <label for="">Nome:</label>
         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-            placeholder="Type category name" value="{{ $category->name ?? old('name') }}">
+            placeholder="Digite um nome" value="{{ $category->name ?? old('name') }}">
 
         @error('name')
             <span class="invalid-feedback" role="alert">
@@ -11,5 +10,8 @@
             </span>
         @enderror
     </div>
+</div>
 
+<div class="card-footer">
+    <button type="submit" class="btn btn-primary">Salvar</button>
 </div>

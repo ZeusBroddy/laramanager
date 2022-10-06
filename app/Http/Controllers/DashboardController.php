@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $universities = University::withCount('profiles')->get();
         $paths = Path::withCount('profiles')->get();
 
-        return view('dashboard.index', [
+        return view('admin.pages.dashboard.index', [
             'latestEithUsers' => $latestEithUsers,
             'usersCount' => $usersCount,
             'universities' => $universities,

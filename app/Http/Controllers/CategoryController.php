@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->repository->get();
+        $categories = $this->repository->withTrashed()->get();
 
         return view('admin.pages.categories.index', compact('categories'));
     }
@@ -116,7 +116,7 @@ class CategoryController extends Controller
      */
     public function restore($id)
     {
-        $category = $this->repository->findOrFail($id);
+        $category = $this->repository->withTrashed()->findOrFail($id);
         $category->restore();
 
         return redirect()->route('categories.index')->with([

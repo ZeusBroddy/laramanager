@@ -1,17 +1,17 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', config('app.name') . ' - ' . __('adminlte::menu.users'))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Edit User</h1>
+            <h1>Editar Usuário</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
-                <li class="breadcrumb-item active">Edit User</li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('adminlte::menu.dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{ __('adminlte::menu.users') }}</a></li>
+                <li class="breadcrumb-item active">Editar Usuário</li>
             </ol>
         </div>
     </div>
@@ -20,7 +20,7 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Account details</h3>
+            <h3 class="card-title">Usuário</h3>
         </div>
         <form action="{{ route('users.update', $user->id) }}" class="form" method="POST">
             @csrf
@@ -28,10 +28,10 @@
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="">Select user role:</label>
+                    <label for="">Papel:</label>
                     <select name="role" class="form-control select2 @error('role') is-invalid @enderror">
-                        <option {{ $user->role == 'admin' ? 'selected' : '' }} value="admin">admin</option>
-                        <option {{ $user->role == 'user' ? 'selected' : '' }} value="user">user</option>
+                        <option value="admin">Admin</option>
+                        <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
                     </select>
 
                     @error('role')
@@ -42,9 +42,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="">Email:</label>
+                    <label for="">E-mail:</label>
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                        placeholder="Type email" value="{{ $user->email ?? old('email') }}">
+                        placeholder="unkown@email.com" value="{{ $user->email ?? old('email') }}">
 
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -54,9 +54,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="">Full name:</label>
+                    <label for="">Nome completo:</label>
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                        placeholder="Type full name" value="{{ $user->name ?? old('name') }}">
+                        placeholder="Jenny Dow" value="{{ $user->name ?? old('name') }}">
 
                     @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -69,7 +69,7 @@
                     <div class="col-6">
                         <label for="">CPF:</label>
                         <input type="text" name="cpf" class="form-control @error('cpf') is-invalid @enderror"
-                            placeholder="Type cpf" value="{{ $user->profile->cpf ?? old('cpf') }}">
+                            placeholder="00000000000" value="{{ $user->profile->cpf ?? old('cpf') }}">
 
                         @error('cpf')
                             <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="col-6">
-                        <label for="">Universidade:</label>
+                        <label for="">Faculdade:</label>
                         <select name="university_id"
                             class="form-control select2 @error('university_id') is-invalid @enderror">
                             @foreach ($universities as $university)
@@ -103,10 +103,14 @@
             </div>
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Edit User</button>
+                <button type="submit" class="btn btn-primary">Salvar</button>
             </div>
         </form>
     </div>
+@stop
+
+@section('footer')
+    @include('admin.components.footer')
 @stop
 
 @section('js')

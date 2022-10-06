@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', config('app.name') . ' - ' . __('adminlte::menu.paths'))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>All Paths</h1>
+            <h1>{{ __('adminlte::menu.paths') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">All Paths</li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('adminlte::menu.dashboard') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('adminlte::menu.paths') }}</li>
             </ol>
         </div>
     </div>
@@ -19,10 +19,10 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Paths</h3>
+            <h3 class="card-title">Rotas</h3>
 
             <div class="card-tools">
-                <a href="{{ route('paths.create') }}" class="btn btn-tool">
+                <a href="{{ route('paths.create') }}" class="btn btn-tool" title="Novo">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
@@ -31,8 +31,8 @@
             <table class="table table-responsive-md table-striped" id="paths-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th class="text-right">Actions</th>
+                        <th>Nome</th>
+                        <th class="text-right">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,10 +40,10 @@
                         <tr>
                             <td>{{ $path->name }}</td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm" href="{{ route('paths.edit', $path->id) }}">
+                                <a class="btn btn-info btn-sm" href="{{ route('paths.edit', $path->id) }}" title="Editar">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="{{ route('paths.destroy', $path->id) }}"
+                                <a class="btn btn-danger btn-sm" href="{{ route('paths.destroy', $path->id) }}" title="Remover"
                                     onclick="event.preventDefault();
                                         document.getElementById('paht-destroy{{ $path->id }}').submit();">
                                     <i class="fas fa-trash"></i>
@@ -62,6 +62,10 @@
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
+@stop
+
+@section('footer')
+    @include('admin.components.footer')
 @stop
 
 @section('js')

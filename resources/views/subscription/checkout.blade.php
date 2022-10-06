@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', config('app.name') . ' - ' . __('adminlte::menu.subscription'))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Subscription</h1>
+            <h1>{{ __('adminlte::menu.subscription') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">Subscription</li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('adminlte::menu.dashboard') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('adminlte::menu.subscription') }}</li>
             </ol>
         </div>
     </div>
@@ -19,14 +19,14 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Account details</h3>
+            <h3 class="card-title">Mensalidade</h3>
         </div>
         <form action="{{ route('subscriptions.store') }}" method="post" id="form">
             @csrf
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="">Select plan:</label>
+                    <label for="">Plano:</label>
                     <select name="price_id" id="price_id" class="form-control select2 @error('price_id') is-invalid @enderror">
                         @foreach ($products as $plan)
                             <option value="{{ $plan['price_details']['id'] }}">{{ $plan['name'] }}</option>
@@ -41,9 +41,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="">Name on card:</label>
+                    <label for="">Nome no cartão:</label>
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                        value="{{ $user->name ?? old('name') }}">
+                        placeholder="Jenny Dow" value="{{ $user->name ?? old('name') }}">
 
                     @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -53,9 +53,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="">Email:</label>
+                    <label for="">E-mail:</label>
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                        value="{{ $user->email ?? old('email') }}" disabled>
+                        placeholder="jennydow@email.com" value="{{ $user->email ?? old('email') }}" disabled>
 
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="">Card information:</label>
+                    <label for="">Cartão:</label>
                     <div id="card-element" class="form-control"></div>
                 </div>
 
@@ -76,6 +76,10 @@
             </div>
         </form>
     </div>
+@stop
+
+@section('footer')
+    @include('admin.components.footer')
 @stop
 
 @section('js')

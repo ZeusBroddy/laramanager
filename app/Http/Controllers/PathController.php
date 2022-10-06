@@ -70,7 +70,7 @@ class PathController extends Controller
     {
         $path = $this->repository->findOrFail($id);
 
-        return view('admin.pages.paths.edit', compact('route'));
+        return view('admin.pages.paths.edit', compact('path'));
     }
 
     /**

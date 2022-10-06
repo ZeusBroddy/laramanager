@@ -1,15 +1,15 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', __('adminlte::menu.dashboard'))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Dashboard</h1>
+            <h1>{{ __('adminlte::menu.dashboard') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item active">Home</li>
+                <li class="breadcrumb-item active">{{ __('adminlte::menu.dashboard') }}</li>
             </ol>
         </div>
     </div>
@@ -20,6 +20,36 @@
     <!-- Info boxes -->
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Receitas</span>
+                    <span class="info-box-number">760</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Despesas</span>
+                    <span class="info-box-number">41,410</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+            <!-- /.info-box -->
             <div class="info-box">
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
@@ -37,37 +67,7 @@
         <!-- /.col -->
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Likes</span>
-                    <span class="info-box-number">41,410</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <!-- fix for small devices only -->
-        <div class="clearfix hidden-md-up"></div>
-
-        <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Sales</span>
-                    <span class="info-box-number">760</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Usuários</span>
@@ -94,10 +94,10 @@
             <!-- USERS LIST -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Latest Members</h3>
+                    <h3 class="card-title">Novos Membros</h3>
 
                     <div class="card-tools">
-                        <span class="badge badge-danger">{{ $latestEithUsers->count() }} New Members</span>
+                        <span class="badge badge-danger">{{ $latestEithUsers->count() }} Novos Membros</span>
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </button>
@@ -112,7 +112,7 @@
                         @foreach ($latestEithUsers as $user)
                             <li>
                                 <img src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/profiles/avatar.jpg') }}"
-                                    alt="User Image">
+                                    class="" alt="User Image">
                                 <a class="users-list-name" href="#">{{ $user->name }}</a>
                                 <span class="users-list-date">{{ $user->created_at_formated }}</span>
                             </li>
@@ -121,9 +121,9 @@
                     <!-- /.users-list -->
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer text-center">
+                {{-- <div class="card-footer text-center">
                     <a href="javascript:">View All Users</a>
-                </div>
+                </div> --}}
                 <!-- /.card-footer -->
             </div>
             <!--/.card -->
@@ -131,7 +131,7 @@
             <!-- DONUT CHART -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Faculdades / Associados</h3>
+                    <h3 class="card-title">Associados por faculdade</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -153,7 +153,7 @@
             <!-- DONUT CHART -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Rotas / Associados</h3>
+                    <h3 class="card-title">Associados por rota</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
