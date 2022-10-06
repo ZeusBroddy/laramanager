@@ -150,10 +150,10 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout_dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -194,7 +194,7 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-dark navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -302,186 +302,104 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'Dashboard',
+            'text' => 'dashboard',
             'url'  => 'dashboard',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
         [
             'text' => 'profile',
             'url'  => '/user/profile',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'Subscription',
+            'text' => 'subscription',
             'url'  => '/subscriptions/checkout',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-calendar-alt',
         ],
 
         ['header' => 'ADMIN', 'can' => 'isAdmin'],
         [
-            'text' => 'Users',
+            'text' => 'users',
             'url'  => 'admin/users',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-users',
             'can' => 'isAdmin',
         ],
         [
-            'text' => 'Settings',
+            'text' => 'settings',
             'url'  => 'admin/settings',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-cog',
             'can' => 'isAdmin',
         ],
         [
-            'text'    => 'Content',
+            'text'    => 'content',
             'icon'    => 'fas fa-fw fa-share',
             'can' => 'isAdmin',
             'submenu' => [
                 [
-                    'text' => 'Pages',
+                    'text' => 'pages',
                     'url'  => 'admin/pages',
-                    'icon' => 'far fa-fw fa-file',
+                    'icon' => 'fas fa-fw fa-desktop',
                     'can' => 'isAdmin',
                 ],
             ],
         ],
         [
-            'text'    => 'Subscription',
+            'text'    => 'subscriptions',
             'icon'    => 'fas fa-fw fa-share',
             'can' => 'isAdmin',
             'submenu' => [
                 [
-                    'text' => 'Plans',
+                    'text' => 'plans',
                     'url'  => 'admin/plans',
-                    'icon' => 'far fa-fw fa-file',
+                    'icon' => 'fas fa-fw fa-database',
                     'can' => 'isAdmin',
                 ],
                 [
-                    'text' => 'Transactions',
+                    'text' => 'transactions',
                     'url'  => 'admin/transactions',
-                    'icon' => 'far fa-fw fa-file',
+                    'icon' => 'far fa-fw fa-file-alt',
                     'can' => 'isAdmin',
                 ],
             ],
         ],
         [
-            'text'    => 'Ledger',
+            'text'    => 'ledger',
             'icon'    => 'fas fa-fw fa-share',
             'can' => 'isAdmin',
             'submenu' => [
                 [
-                    'text' => 'Categories',
+                    'text' => 'categories',
                     'url'  => 'admin/categories',
-                    'icon' => 'far fa-fw fa-file',
+                    'icon' => 'fas fa-fw fa-th',
                     'can' => 'isAdmin',
                 ],
                 [
-                    'text' => 'Incomes and Expenses',
+                    'text' => 'ledger',
                     'url'  => 'admin/ledger',
-                    'icon' => 'far fa-fw fa-file',
+                    'icon' => 'fas fa-fw fa-coins',
                     'can' => 'isAdmin',
                 ],
             ],
         ],
         [
-            'text'    => 'Routes',
+            'text'    => 'paths',
             'icon'    => 'fas fa-fw fa-share',
             'can' => 'isAdmin',
             'submenu' => [
                 [
-                    'text' => 'Paths',
+                    'text' => 'paths',
                     'url'  => 'admin/paths',
-                    'icon' => 'far fa-fw fa-file',
+                    'icon' => 'fas fa-fw fa-route',
                     'can' => 'isAdmin',
                 ],
                 [
-                    'text' => 'Universities',
+                    'text' => 'universities',
                     'url'  => 'admin/universities',
-                    'icon' => 'far fa-fw fa-file',
+                    'icon' => 'fas fa-fw fa-university',
                     'can' => 'isAdmin',
                 ],
             ],
         ],
-
-        // [
-        //     'type' => 'sidebar-menu-search',
-        //     'text' => 'search',
-        // ],
-        // [
-        //     'text' => 'blog',
-        //     'url'  => 'admin/blog',
-        //     // 'can'  => 'manage-blog',
-        // ],
-        // [
-        //     'text'        => 'pages',
-        //     'url'         => 'admin/pages',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
-        // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'profile',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
-        // [
-        //     'text' => 'change_password',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
-        // [
-        //     'text'    => 'multilevel',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //         [
-        //             'text'    => 'level_one',
-        //             'url'     => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url'  => '#',
-        //                 ],
-        //                 [
-        //                     'text'    => 'level_two',
-        //                     'url'     => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //     ],
-        // ],
-        // ['header' => 'labels'],
-        // [
-        //     'text'       => 'important',
-        //     'icon_color' => 'red',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url'        => '#',
-        // ],
     ],
 
     /*

@@ -16,93 +16,171 @@
 @stop
 
 @section('content')
-    <!-- Small boxes (Stat box) -->
+
+    <!-- Info boxes -->
     <div class="row">
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>150</h3>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
-                    <p>New Orders</p>
+                <div class="info-box-content">
+                    <span class="info-box-text">CPU Traffic</span>
+                    <span class="info-box-number">
+                        10
+                        <small>%</small>
+                    </span>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-bag"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
-                    <p>Bounce Rate</p>
+                <div class="info-box-content">
+                    <span class="info-box-text">Likes</span>
+                    <span class="info-box-number">41,410</span>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3>{{ $users->count() }}</h3>
+        <!-- /.col -->
 
-                    <p>User Registrations</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-                <div class="inner">
-                    <h3>65</h3>
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
 
-                    <p>Unique Visitors</p>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Sales</span>
+                    <span class="info-box-number">760</span>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
         </div>
-        <!-- ./col -->
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Usuários</span>
+                    <span class="info-box-number">{{ $usersCount }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
     </div>
     <!-- /.row -->
 
-    <!-- DONUT CHART -->
-    <div class="card card-danger">
-        <div class="card-header">
-            <h3 class="card-title">Faculdades / Associados</h3>
+    <!-- Main row -->
+    <div class="row">
+        <!-- Left col -->
+        <div class="col-md-8">
+        </div>
+        <!-- /.col -->
 
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                </button>
+        <!-- Right col -->
+        <div class="col-md-4">
+
+            <!-- USERS LIST -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Latest Members</h3>
+
+                    <div class="card-tools">
+                        <span class="badge badge-danger">{{ $latestEithUsers->count() }} New Members</span>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <ul class="users-list clearfix">
+                        @foreach ($latestEithUsers as $user)
+                            <li>
+                                <img src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/profiles/avatar.jpg') }}"
+                                    alt="User Image">
+                                <a class="users-list-name" href="#">{{ $user->name }}</a>
+                                <span class="users-list-date">{{ $user->created_at_formated }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <!-- /.users-list -->
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer text-center">
+                    <a href="javascript:">View All Users</a>
+                </div>
+                <!-- /.card-footer -->
             </div>
-        </div>
-        <div class="card-body">
-            <canvas id="universitiesPerUsers"
-                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-        </div>
-        <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
+            <!--/.card -->
 
+            <!-- DONUT CHART -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Faculdades / Associados</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="universitiesPerUsers"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- DONUT CHART -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Rotas / Associados</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="routesPerUsers"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+        </div>
+        <!-- /.col -->
+
+    </div>
+    <!-- /.row -->
+@stop
+
+@section('footer')
+    @include('admin.components.footer')
 @stop
 
 @section('js')
@@ -128,6 +206,33 @@
                         @endforeach
                     ],
                     backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                }]
+            }
+            var donutOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+            }
+
+            new Chart(donutChartCanvas, {
+                type: 'doughnut',
+                data: donutData,
+                options: donutOptions
+            })
+
+            var donutChartCanvas = $('#routesPerUsers').get(0).getContext('2d')
+            var donutData = {
+                labels: [
+                    @foreach ($paths as $path)
+                        ["{{ $path->name }}"],
+                    @endforeach
+                ],
+                datasets: [{
+                    data: [
+                        @foreach ($paths as $path)
+                            ["{{ $path->profiles_count }}"],
+                        @endforeach
+                    ],
+                    backgroundColor: ['#00c0ef', '#00a65a', '#d2d6de', '#3c8dbc', '#f56954', '#f39c12'],
                 }]
             }
             var donutOptions = {

@@ -45,7 +45,7 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>
-                                <img src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/profile/avatar.png') }}"
+                                <img src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/profiles/avatar.png') }}"
                                     alt="avatar"
                                     class="img-circle img-size-32 mr-2">
                                 {{ $user->name }}
