@@ -28,8 +28,8 @@
                 <div class="form-group">
                     <label for="">Plano:</label>
                     <select name="price_id" id="price_id" class="form-control select2 @error('price_id') is-invalid @enderror">
-                        @foreach ($products as $plan)
-                            <option value="{{ $plan['price_details']['id'] }}">{{ $plan['name'] }}</option>
+                        @foreach ($plans as $plan)
+                            <option value="{{ $plan->stripe_plan_id }}">{{ $plan->name }}</option>
                         @endforeach
                     </select>
 

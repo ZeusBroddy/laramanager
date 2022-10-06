@@ -27,7 +27,7 @@
                     <tr>
                         <th>Data</th>
                         <th>Valor</th>
-                        <th>Download</th>
+                        <th class="text-right">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,8 +35,11 @@
                         <tr>
                             <td>{{ $invoice->date()->toFormattedDateString() }}</td>
                             <td>{{ $invoice->total() }}</td>
-                            <td>
-                                <a href="{{ route('subscriptions.invoice.download', $invoice->id) }}">Download</a>
+                            <td class="project-actions text-right">
+                                <a class="btn btn-info btn-sm" title="Baixar fatura"
+                                    href="{{ route('subscriptions.invoice.download', $invoice->id) }}">
+                                    <i class="fas fa-file-pdf"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

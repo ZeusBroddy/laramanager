@@ -61,18 +61,18 @@ class SubscriptionController extends Controller
             return redirect()->route('subscriptions.account');
         }
 
-        $products = StripeController::products();
+        $plans = Plan::get();
 
         // SE NÃO TIVER PLANO CADASTRO, RETORNA PARA O DASHBOARD
-        if(!$products) {
+        if(!$plans) {
             return redirect()->route('dashboard')->with([
                 'alert-type' => 'info',
                 'message' => 'Nenhum plano disponível para assinatura.'
             ]);
         }
 
-        return view('subscription.checkout', [
-            'products' => $products,
+        return view('admin.pages.subscription.checkout', [
+            'plans' => $plans,
             'user' => $user,
             'intent' => auth()->user()->createSetupIntent(),
         ]);
@@ -92,7 +92,7 @@ class SubscriptionController extends Controller
             return redirect()->route('subscriptions.checkout');
         }
 
-        return view('subscription.account', compact('invoices'));
+        return view('admin.pages.subscription.account', compact('invoices'));
     }
 
     /**
