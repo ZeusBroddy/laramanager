@@ -22,5 +22,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@auma.com',
             'password' => Hash::make('12345678')
         ]);
+
+        User::factory()->count(20)->create();
     }
 }

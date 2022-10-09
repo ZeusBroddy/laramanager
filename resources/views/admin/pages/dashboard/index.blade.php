@@ -25,7 +25,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Receitas</span>
-                    <span class="info-box-number">760</span>
+                    <span class="info-box-number">R$ {{ $balance }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -37,7 +37,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Despesas</span>
-                    <span class="info-box-number">41,410</span>
+                    <span class="info-box-number">R$ {{ $expenses }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -85,8 +85,90 @@
     <div class="row">
         <!-- Left col -->
         <div class="col-md-8">
+            <!-- Custom tabs (Charts with tabs)-->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-chart-pie mr-1"></i>
+                        Financeiro
+                    </h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="tab-content p-0">
+                        <!-- Morris chart - Sales -->
+                        <div class="chart tab-pane active" style="position: relative; height: 300px;">
+                            <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                        </div>
+                    </div>
+                </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- TABLE: LATEST TRANSACTIONS -->
+            @if (count($invoices) > 0)
+                <div class="card">
+                    <div class="card-header border-transparent">
+                        <h3 class="card-title">Últimas transações</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table m-0">
+                                <thead>
+                                    <tr>
+                                        <th>Usuário</th>
+                                        <th>Tipo</th>
+                                        <th>Total</th>
+                                        <th>Pago em</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($invoices as $invoice)
+                                        <tr>
+                                            <td>{{ $invoice['name'] }}</td>
+                                            <td>Cartão de crédito</td>
+                                            <td>{{ $invoice['total'] }}</td>
+                                            <td>{{ $invoice['paid_at'] }}</td>
+                                            <td>
+                                                <span
+                                                    class="badge {{ $invoice['paid'] == true ? 'bg-success' : 'bg-danger' }}">
+                                                    {{ $invoice['paid'] == true ? 'Finalizado' : 'Error' }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            @endif
         </div>
         <!-- /.col -->
+
 
         <!-- Right col -->
         <div class="col-md-4">
@@ -244,6 +326,67 @@
                 type: 'doughnut',
                 data: donutData,
                 options: donutOptions
+            })
+
+
+            /* Chart.js Charts */
+            // Sales chart
+            var salesChartCanvas = document.getElementById('revenue-chart-canvas').getContext('2d')
+            // $('#revenue-chart').get(0).getContext('2d');
+
+            var salesChartData = {
+                labels: ['Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro'],
+                datasets: [{
+                        label: 'Digital Goods',
+                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        borderColor: 'rgba(60,141,188,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: [28, 48, 40, 19, 86, 27, 90]
+                    },
+                    {
+                        label: 'Electronics',
+                        backgroundColor: 'rgba(210, 214, 222, 1)',
+                        borderColor: 'rgba(210, 214, 222, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    }
+                ]
+            }
+
+            var salesChartOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+
+            // This will get the first returned node in the jQuery collection.
+            // eslint-disable-next-line no-unused-vars
+            var salesChart = new Chart(salesChartCanvas, { // lgtm[js/unused-local-variable]
+                type: 'line',
+                data: salesChartData,
+                options: salesChartOptions
             })
         })
     </script>

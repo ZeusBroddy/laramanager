@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($items as $invoice)
+                    @foreach ($invoices as $invoice)
                         <tr>
                             <td>{{ $invoice['name'] }}</td>
                             <td>Cartão de crédito</td>

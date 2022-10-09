@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ledger;
 use App\Models\Path;
 use App\Models\University;
 use App\Models\User;
@@ -23,11 +24,20 @@ class DashboardController extends Controller
         $universities = University::withCount('profiles')->get();
         $paths = Path::withCount('profiles')->get();
 
+        $invoices = (new StripeController)->getInvoices();
+
+        $balance = (new StripeController)->getBalance();
+
+        $expenses = Ledger::where('type', 'expense')->sum('amount');
+
         return view('admin.pages.dashboard.index', [
             'latestEithUsers' => $latestEithUsers,
             'usersCount' => $usersCount,
             'universities' => $universities,
-            'paths' => $paths
+            'paths' => $paths,
+            'invoices' => $invoices,
+            'balance' => $balance,
+            'expenses' => $expenses
         ]);
     }
 }
