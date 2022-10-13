@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply font-body text-[18px] leading-[20px] bg-[#f8ede5] text-[#333];
+    }
+
+    p {
+        @apply leading-[1.4rem];
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        @apply w-[10px];
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        @apply bg-white;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        @apply bg-[#ebc7b5];
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-black
+    }
+}
+
+@layer components {
+    /* General */
+    .font-body {
+
+    }
+
+    .section-slides {
+        @apply relative;
+    }
+
+    .section-slide {
+        @apply h-full rounded-b-[100px] py-[200px] px-[20px] sm:px-[40px] lg:px-[60px];
+    }
+
+    /* Banner */
+    .banner {
+        @apply bg-[url('../../public/img/main/hero.svg')] bg-no-repeat bg-cover bg-[left_center] pt-0 pb-[100px] text-white rounded-b-none sm:pb-[65px] lg:rounded-b-[100px];
+    }
+
+    .banner-inner-content {
+
+    }
+
+    .banner-title {
+
+    }
+
+    .banner-inner-text {
+
+    }
+}

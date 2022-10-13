@@ -136,6 +136,7 @@
                                 <thead>
                                     <tr>
                                         <th>Usuário</th>
+                                        <th>Descrição</th>
                                         <th>Tipo</th>
                                         <th>Total</th>
                                         <th>Pago em</th>
@@ -145,14 +146,15 @@
                                 <tbody>
                                     @foreach ($invoices as $invoice)
                                         <tr>
-                                            <td>{{ $invoice['name'] }}</td>
-                                            <td>Cartão de crédito</td>
-                                            <td>{{ $invoice['total'] }}</td>
-                                            <td>{{ $invoice['paid_at'] }}</td>
+                                            <td>{{ $invoice->user->name }}</td>
+                                            <td>Mensalidade: {{ $invoice->due_date_month }}</td>
+                                            <td>Cartão</td>
+                                            <td>{{ $invoice->total_brl }}</td>
+                                            <td>{{ $invoice->paid_at_formated }}</td>
                                             <td>
                                                 <span
-                                                    class="badge {{ $invoice['paid'] == true ? 'bg-success' : 'bg-danger' }}">
-                                                    {{ $invoice['paid'] == true ? 'Finalizado' : 'Error' }}
+                                                    class="badge {{ $invoice->paid_at != null ? 'bg-success' : 'bg-danger' }}">
+                                                    {{ $invoice->paid_at != null ? 'Finalizado' : 'A pagar' }}
                                                 </span>
                                             </td>
                                         </tr>

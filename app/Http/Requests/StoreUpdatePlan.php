@@ -26,8 +26,8 @@ class StoreUpdatePlan extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:255'],
             'amount' => ['required', "regex:/^\d+(\.\d{1,2})?$/"],
-            'interval' => ['required', Rule::in(['day', 'week', 'month', 'year'])],
         ];
     }
 }

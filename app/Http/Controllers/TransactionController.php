@@ -11,11 +11,8 @@ use Laravel\Cashier\Cashier;
 
 class TransactionController extends Controller
 {
-    private $stripeBaseUrl;
-
     public function __construct()
     {
-        $this->stripeBaseUrl = config('services.stripe.base_url');
         $this->middleware('can:isAdmin');
     }
 
@@ -26,8 +23,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $invoices = (new StripeController)->getInvoices();
+        // $invoices = (new StripeController)->getInvoices();
 
-        return view('admin.pages.transactions.index', compact('invoices'));
+        return view('admin.pages.transactions.index');
     }
 }

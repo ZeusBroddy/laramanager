@@ -32,12 +32,12 @@
                 <thead>
                     <tr>
                         <th>Usuário</th>
-                        <th>E-mail</th>
                         <th>Papel</th>
                         <th>CPF</th>
-                        <th>Criado em</th>
-                        <th>Assinatura</th>
+                        <th>Nascimento</th>
                         <th>Faculdade</th>
+                        <th>Débito?</th>
+                        <th>Criado em</th>
                         <th class="text-right">Ações</th>
                     </tr>
                 </thead>
@@ -45,30 +45,35 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>
-                                <img src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/profiles/avatar.png') }}"
-                                    alt="avatar" class="img-circle img-size-32 mr-2">
-                                {{ $user->name }}
+                                <div class="user-block">
+                                    <img src="{{ $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('img/profiles/avatar.png') }}"
+                                        alt="avatar" class="img-circle img-size-32 mr-2">
+                                    <span class="username">{{ $user->name }}</span>
+                                    <span class="description">{{ $user->email }}</span>
+                                </div>
                             </td>
-                            <td>{{ $user->email }}</td>
                             <td>
                                 <span class="badge {{ $user->role == 'user' ? 'bg-primary' : 'bg-purple' }}">
                                     {{ $user->role }}
                                 </span>
                             </td>
                             <td>{{ $user->profile->cpf_formated }}</td>
-                            <td>{{ $user->created_at_formated }}</td>
+                            <td>{{ $user->profile->birth_date_formated }}</td>
+                            <td>{{ $user->profile->university->name }}</td>
                             <td>
-                                <span class="badge {{ $user->subscribed('default') ? 'bg-success' : 'bg-gray' }}">
-                                    {{ $user->subscribed('default') ? 'Ativo' : 'Inativo' }}
+                                <span class="badge {{ $user->invoices_count > 0 ? 'bg-danger' : 'bg-success' }}">
+                                    {{ $user->invoices_count > 0 ? 'Sim' : 'Não' }}
                                 </span>
                             </td>
-                            <td>{{ $user->profile->university->name }}</td>
+                            <td>{{ $user->created_at_formated }}</td>
                             <td class="project-actions text-right">
                                 @if (!$user->deleted_at)
-                                    <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user->id) }}" title="Editar">
+                                    <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user->id) }}"
+                                        title="Editar">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="{{ route('users.destroy', $user->id) }}" title="Remover"
+                                    <a class="btn btn-danger btn-sm" href="{{ route('users.destroy', $user->id) }}"
+                                        title="Remover"
                                         onclick="event.preventDefault();
                                         document.getElementById('user-destroy{{ $user->id }}').submit();">
                                         <i class="fas fa-trash"></i>
@@ -79,7 +84,8 @@
                                         @method('DELETE')
                                     </form>
                                 @else
-                                    <a class="btn btn-secondary btn-sm" href="{{ route('users.restore', $user->id) }}" title="Restaurar">
+                                    <a class="btn btn-secondary btn-sm" href="{{ route('users.restore', $user->id) }}"
+                                        title="Restaurar">
                                         <i class="fas fa-reply"></i>
                                     </a>
                                 @endif

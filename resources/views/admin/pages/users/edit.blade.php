@@ -29,7 +29,8 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="">Papel:</label>
-                    <select name="role" class="form-control select2 @error('role') is-invalid @enderror">
+                    <select name="role" class="form-control select2 @error('role') is-invalid @enderror"
+                        style="width: 100%">
                         <option value="admin">Admin</option>
                         <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
                     </select>
@@ -66,7 +67,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-6">
+                    <div class="col-sm-4">
                         <label for="">CPF:</label>
                         <input type="text" name="cpf" class="form-control @error('cpf') is-invalid @enderror"
                             placeholder="00000000000" value="{{ $user->profile->cpf ?? old('cpf') }}">
@@ -78,9 +79,22 @@
                         @enderror
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-sm-4">
+                        <label for="">Data Nascimento:</label>
+                        <input type="date" name="birth_date"
+                            class="form-control @error('birth_date') is-invalid @enderror"
+                            value="{{ $entry->birth_date ?? old('birth_date') }}">
+
+                        @error('birth_date')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-sm-4">
                         <label for="">Faculdade:</label>
-                        <select name="university_id"
+                        <select name="university_id" style="width: 100%"
                             class="form-control select2 @error('university_id') is-invalid @enderror">
                             @foreach ($universities as $university)
                                 <option value="{{ $university->id }}"
@@ -98,6 +112,7 @@
                             </span>
                         @enderror
                     </div>
+
                 </div>
 
             </div>

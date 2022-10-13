@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\PathController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -71,6 +71,8 @@ Route::prefix('admin')
         /**
          * Plans Routes
          */
+        Route::get('plans/{id}/edit', [PlanController::class, 'edit'])->name('plans.edit');
+        Route::put('plans/{id}', [PlanController::class, 'update'])->name('plans.update');
         Route::delete('plans/{id}', [PlanController::class, 'destroy'])->name('plans.destroy');
         Route::get('plans/create', [PlanController::class, 'create'])->name('plans.create');
         Route::get('plans', [PlanController::class, 'index'])->name('plans.index');
@@ -100,10 +102,11 @@ Route::middleware(['auth'])->group(function () {
     /**
      * Subscription Routes
      */
-    Route::get('subscriptions/invoice/{id}', [SubscriptionController::class, 'downloadInvoice'])->name('subscriptions.invoice.download');
-    Route::post('subscriptions/store', [SubscriptionController::class, 'store'])->name('subscriptions.store');
-    Route::get('subscriptions/account', [SubscriptionController::class, 'account'])->name('subscriptions.account');
-    Route::get('subscriptions/checkout', [SubscriptionController::class, 'checkout'])->name('subscriptions.checkout');
+    Route::get('subscriptions/invoice/{id}', [InvoiceController::class, 'downloadInvoice'])->name('subscriptions.invoice.download');
+    Route::put('subscriptions/{id}', [InvoiceController::class, 'update'])->name('subscriptions.update');
+    Route::get('subscriptions/account', [InvoiceController::class, 'account'])->name('subscriptions.account');
+    Route::get('subscriptions/checkout/{id}', [InvoiceController::class, 'checkout'])->name('subscriptions.checkout');
+    Route::get('subscriptions', [InvoiceController::class, 'index'])->name('subscriptions.index');
 
     /**
      * Dashboard Route

@@ -313,7 +313,7 @@ return [
         ],
         [
             'text' => 'subscription',
-            'url'  => '/subscriptions/checkout',
+            'url'  => '/subscriptions',
             'icon' => 'fas fa-fw fa-calendar-alt',
         ],
 

@@ -28,7 +28,7 @@ class StoreUpdateProfile extends FormRequest
             'city' => ['required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'min:8' ,'max:8'],
             'phone_number' => ['required', 'string', 'min:11', 'max:11'],
-            'avatar' => ['nullable', 'image']
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,svg', 'max:2048'],
         ];
     }
 }

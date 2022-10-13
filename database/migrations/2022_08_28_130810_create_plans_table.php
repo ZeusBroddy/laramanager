@@ -16,15 +16,9 @@ return new class extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->enum('status', ['active', 'archived'])->default('active');
-            $table->enum('type', ['fixed', 'metered'])->default('fixed');
             $table->string('name');
-            $table->string('stripe_plan_id')->nullable();
-            $table->string('stripe_product_id')->nullable();
             $table->text('description')->nullable();
-            $table->decimal('amount')->nullable();
-            $table->text('currency');
-            $table->enum('interval', ['day', 'week', 'month', 'quarter', 'year'])->default('month');
-            $table->boolean('visible')->default(true);
+            $table->double('amount', 10, 2);
             $table->timestamps();
         });
     }

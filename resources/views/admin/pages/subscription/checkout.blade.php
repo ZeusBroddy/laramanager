@@ -17,64 +17,68 @@
 @stop
 
 @section('content')
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Mensalidade</h3>
+    <div class="row">
+        <div class="col-md-3">
+
+            <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+
+                    <h3 class="profile-username text-center">Mensalidade: {{ $invoice->due_date_month }}</h3>
+
+                    <p class="text-xl text-center">{{ $invoice->total_brl }}</p>
+                </div>
+                <!-- /.card-body -->
+            </div>
         </div>
-        <form action="{{ route('subscriptions.store') }}" method="post" id="form">
-            @csrf
 
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="">Plano:</label>
-                    <select name="price_id" id="price_id" class="form-control select2 @error('price_id') is-invalid @enderror">
-                        @foreach ($plans as $plan)
-                            <option value="{{ $plan->stripe_plan_id }}">{{ $plan->name }}</option>
-                        @endforeach
-                    </select>
-
-                    @error('price_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+        <div class="col-md-9">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Informações de Pagamento</h3>
                 </div>
 
-                <div class="form-group">
-                    <label for="">Nome no cartão:</label>
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                        placeholder="Jenny Dow" value="{{ $user->name ?? old('name') }}">
+                <form action="{{ route('subscriptions.update', $invoice->id) }}" class="form" method="POST" id="form">
+                    @csrf
+                    @method('PUT')
 
-                    @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="">E-mail:</label>
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                                placeholder="jennydow@email.com" value="{{ $user->email ?? old('email') }}" disabled>
 
-                <div class="form-group">
-                    <label for="">E-mail:</label>
-                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                        placeholder="jennydow@email.com" value="{{ $user->email ?? old('email') }}" disabled>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
+                        <div class="form-group">
+                            <label for="">Nome no cartão:</label>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                id="card-holder-name" placeholder="Jenny Dow" value="{{ $user->name ?? old('name') }}">
 
-                <div class="form-group">
-                    <label for="">Cartão:</label>
-                    <div id="card-element" class="form-control"></div>
-                </div>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Dados do cartão:</label>
+                            <div id="card-element" class="form-control"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" id="card-button" type="submit">Enviar</button>
+                    </div>
+                </form>
 
             </div>
-
-            <div class="card-footer">
-                <button class="btn btn-primary" id="card-button" data-secret="{{ $intent->client_secret }}" type="submit">Enviar</button>
-            </div>
-        </form>
+        </div>
     </div>
 @stop
 
@@ -85,11 +89,6 @@
 @section('js')
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        $(function() {
-            $('.select2').select2();
-        });
-    </script>
-    <script>
         const stripe = Stripe("{{ config('cashier.key') }}");
         const elements = stripe.elements();
         const cardElement = elements.create('card');
@@ -97,20 +96,20 @@
 
         //subscription_payment
         const form = document.getElementById('form');
+        const cardHolderName = document.getElementById('card-holder-name');
         const cardButton = document.getElementById('card-button');
-        const clientSecret = cardButton.dataset.secret;
 
-        form.addEventListener('submit', async (e) => {
+        cardButton.addEventListener('click', async (e) => {
             e.preventDefault();
 
             //gerando o token
-            const { setupIntent, error } = await stripe.confirmCardSetup(
-                clientSecret, {
-                    payment_method: {
-                        card: cardElement,
-                        billing_details: {
-                            name: "{{ auth()->user()->name }}"
-                        }
+            const {
+                paymentMethod,
+                error
+            } = await stripe.createPaymentMethod(
+                'card', cardElement, {
+                    billing_details: {
+                        name: cardHolderName.value
                     }
                 }
             );
@@ -123,7 +122,7 @@
             let token = document.createElement('input');
             token.setAttribute('type', 'hidden');
             token.setAttribute('name', 'token');
-            token.setAttribute('value', setupIntent.payment_method);
+            token.setAttribute('value', paymentMethod.id);
             form.appendChild(token);
 
             form.submit();

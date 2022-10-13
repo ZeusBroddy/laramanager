@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,13 +17,27 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'role' => 'admin',
-            'name' => 'admin',
-            'email' => 'admin@auma.com',
+            'name' => 'Junior Nering',
+            'email' => 'junior_nering@hotmail.com',
             'password' => Hash::make('12345678')
         ]);
 
-        User::factory()->count(20)->create();
+        $user->profile()->create([
+            'university_id' => 5,
+            'cpf' => '82302730062',
+            'birth_date' => '1996/08/14',
+            'address' => 'Rua Qualquer Uma, 1154',
+            'city' => 'Ministro Andreazza',
+            'postal_code' => '76919000',
+            'phone_number' => '69993118491'
+        ]);
+
+        User::factory()
+            ->has(Profile::factory())
+            ->count(20)
+            ->create();
+
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
-use Laravel\Cashier\Subscription;
+// use Laravel\Cashier\Subscription;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -52,13 +52,9 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        static::created(function ($user) {
-            $user->profile()->create([
-                'user_id' => $user->id,
-                'country' => 'BR',
-                'state' => 'RO',
-            ]);
-        });
+        // static::created(function ($user) {
+        //     $user->createAsStripeCustomer();
+        // });
     }
 
     public function isAdmin(): bool
@@ -76,8 +72,18 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-   /**
-     * Retorna a data formatada
+    /**
+     * Get the invoices from this user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    /**
+     * Get the created_at date formated
      */
     public function getCreatedAtFormatedAttribute()
     {

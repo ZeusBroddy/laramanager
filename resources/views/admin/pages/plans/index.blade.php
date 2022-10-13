@@ -32,10 +32,8 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Stripe Plan ID</th>
-                        <th>Stripe Product ID</th>
+                        <th>Descrição</th>
                         <th>Valor</th>
-                        <th>Intervalo</th>
                         <th>Status</th>
                         <th class="text-right">Ações</th>
                     </tr>
@@ -44,16 +42,18 @@
                     @foreach ($plans as $plan)
                         <tr>
                             <td>{{ $plan->name }}</td>
-                            <td>{{ $plan->stripe_plan_id }}</td>
-                            <td>{{ $plan->stripe_product_id }}</td>
-                            <td>R$ {{ $plan->amount_brl }}</td>
-                            <td>{{ $plan->interval }}</td>
+                            <td>{{ $plan->description }}</td>
+                            <td>{{ $plan->amount_brl }}</td>
                             <td>
                                 <span class="badge {{ $plan->status == 'active' ? 'bg-success' : 'bg-red' }}">
                                     {{ $plan->status == 'active' ? 'ativo' : 'inativo' }}
                                 </span>
                             </td>
                             <td class="project-actions text-right">
+                                <a class="btn btn-info btn-sm" href="{{ route('plans.edit', $plan->id) }}"
+                                    title="Editar">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
                                 <a class="btn btn-danger btn-sm" href="{{ route('plans.destroy', $plan->id) }}"
                                     title="Remover"
                                     onclick="event.preventDefault();

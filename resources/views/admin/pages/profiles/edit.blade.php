@@ -88,34 +88,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <div class="col-6">
-                                <label for="">País:</label>
-                                <input type="text" name="country" disabled
-                                    class="form-control @error('country') is-invalid @enderror"
-                                    value="{{ $user->profile->country ?? old('country') }}">
-
-                                @error('country')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-6">
-                                <label for="">Estado:</label>
-                                <input type="text" name="state" disabled
-                                    class="form-control @error('state') is-invalid @enderror"
-                                    value="{{ $user->profile->state ?? old('state') }}">
-
-                                @error('state')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <label for="">Telefone:</label>
                             <input type="text" name="phone_number"

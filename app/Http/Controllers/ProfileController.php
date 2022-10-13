@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUpdateProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+use \Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
@@ -38,6 +38,10 @@ class ProfileController extends Controller
         if ($request->avatar) {
             try {
                 $avatarPath = $request->avatar->store('profiles', 'public');
+
+                $image = Image::make(public_path("storage/{$avatarPath}"))->fit(350, 350);
+                $image->save();
+
                 $avatarArray = ['avatar' => $avatarPath];
             } catch (\Intervention\Image\Exception\ImageException $th) {
                 return redirect()->back()->with([

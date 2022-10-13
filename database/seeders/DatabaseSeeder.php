@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PathSeeder::class,
             UniversitySeeder::class,
+            PlanSeeder::class,
             UserSeeder::class,
         ]);
     }

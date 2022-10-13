@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUpdateUser;
 use App\Models\University;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -31,7 +32,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->repository->withTrashed()->with('profile.university', 'subscriptions')->get();
+        $users = $this->repository->withTrashed()->with('profile.university')
+            ->withCount(['invoices' => function (Builder $query) {
+                $query->whereNull('paid_at');
+            }])->get();
 
         return view('admin.pages.users.index', compact('users'));
     }
@@ -63,7 +67,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->profile->update([
+        $user->profile()->create([
             'university_id' => $request->university_id,
             'cpf' => $request->cpf
         ]);
@@ -97,7 +101,7 @@ class UserController extends Controller
      */
     public function update(StoreUpdateUser $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->repository->findOrFail($id);
 
         $user->update([
             'role' => $request->role,
@@ -105,7 +109,7 @@ class UserController extends Controller
             'email' => $request->email,
         ]);
 
-        $user->profile->update([
+        $user->profile()->update([
             'university_id' => $request->university_id,
             'cpf' => $request->cpf
         ]);
@@ -124,19 +128,22 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->repository->withCount(['invoices' => function (Builder $query) {
+            $query->whereNull('paid_at');
+        }])->findOrFail($id);
 
-        // subscription
-        $subscription = $user->subscription('default');
-        if ($subscription && !$subscription->canceled()) {
-            $subscription->cancelNow();
+        if ($user->invoices_count > 0) {
+            return redirect()->route('users.index')->with([
+                'alert-type' => 'warning',
+                'message' => 'Usuário possui fatura(s) em aberto.',
+            ]);
         }
 
         $user->delete();
 
         return redirect()->route('users.index')->with([
             'alert-type' => 'success',
-            'message' => 'Usuário inativado com sucesso e assinatura cancelada!',
+            'message' => 'Usuário inativado com sucesso!',
         ]);
     }
 
@@ -149,13 +156,6 @@ class UserController extends Controller
     public function restore($id)
     {
         $user = User::withTrashed()->findOrFail($id);
-
-        // subscription
-        $subscription = $user->subscription('default');
-        if ($subscription && $subscription->canceled() && $subscription->onGracePeriod()) {
-            $subscription->resume();
-        }
-
         $user->restore();
 
         return redirect()->route('users.index')->with([

@@ -16,21 +16,16 @@ class Plan extends Model
      */
     protected $fillable = [
         'status',
-        'type',
         'name',
-        'stripe_plan_id',
-        'stripe_product_id',
         'description',
         'amount',
-        'currency',
-        'interval',
     ];
 
     /**
-     * Retorna o valor formato brl de amount
+     * Get the total formated to brl
      */
     public function getAmountBrlAttribute()
     {
-        return $this->amount / 100;
+        return 'R$ '. number_format($this->amount / 100, 2, ',', ' ');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\Ledger;
 use App\Models\Path;
 use App\Models\University;
@@ -24,9 +25,12 @@ class DashboardController extends Controller
         $universities = University::withCount('profiles')->get();
         $paths = Path::withCount('profiles')->get();
 
-        $invoices = (new StripeController)->getInvoices();
+        $invoices = Invoice::whereNotNull('paid_at')
+            ->with('user')
+            ->take(12)
+            ->get();
 
-        $balance = (new StripeController)->getBalance();
+        $balance = Invoice::whereNotNull('paid_at')->sum('total') / 100;
 
         $expenses = Ledger::where('type', 'expense')->sum('amount');
 
