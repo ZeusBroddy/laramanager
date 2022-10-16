@@ -1,7 +1,7 @@
 <div class="card-body">
     <div class="form-group">
         <label for="">Tipo:</label>
-        <select name="type" class="form-control select2 @error('type') is-invalid @enderror">
+        <select name="type" class="form-control select2 @error('type') is-invalid @enderror" style="width: 100%">
             <option value="income">Receita</option>
             <option value="expense"
                 @isset($entry)
@@ -19,7 +19,8 @@
 
     <div class="form-group">
         <label for="">Categoria:</label>
-        <select name="category_id" class="form-control select2 @error('category_id') is-invalid @enderror">
+        <select name="category_id" class="form-control select2 @error('category_id') is-invalid @enderror"
+            style="width: 100%">
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}"
                     @isset($university)
@@ -50,7 +51,7 @@
     </div>
 
     <div class="form-group row">
-        <div class="col-6">
+        <div class="col-sm-6">
             <label for="">Valor:</label>
             <input type="number" name="amount" class="form-control @error('amount') is-invalid @enderror"
                 placeholder="Digite o valor" value="{{ $entry->amount ?? old('amount') }}">
@@ -62,7 +63,7 @@
             @enderror
         </div>
 
-        <div class="col-6">
+        <div class="col-sm-6">
             <label for="">Data:</label>
             <input type="date" name="date" class="form-control @error('date') is-invalid @enderror"
                 value="{{ $entry->date ?? old('date') }}">

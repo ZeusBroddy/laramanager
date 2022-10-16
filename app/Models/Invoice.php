@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,9 +18,9 @@ class Invoice extends Model
      */
     protected $fillable = [
         'user_id',
-        'plan_id',
         'description',
         'total',
+        'net_total',
         'stripe_id',
         'paid_at',
         'due_date'
@@ -36,27 +37,51 @@ class Invoice extends Model
     }
 
     /**
-     * Get the due_date formated to month in portuguese
+     * Interact with the invoice's due_date.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function getDueDateMonthAttribute()
+    protected function dueDateMonth(): Attribute
     {
-        return Carbon::createFromDate($this->due_date)->translatedFormat('F');
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->translatedFormat('F'),
+        );
     }
 
     /**
-     * Get the due_date formated in portuguese
+     * Interact with the invoice's due_date.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function getDueDateFormatedAttribute()
+    protected function dueDateFormated(): Attribute
     {
-        return Carbon::createFromDate($this->due_date)->format('d/m/Y');
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
+        );
     }
 
     /**
-     * Get the due_date formated in portuguese
+     * Interact with the invoice's paid_at.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function getPaidAtFormatedAttribute()
+    protected function paidAtFormated(): Attribute
     {
-        return Carbon::createFromDate($this->paid_at)->translatedFormat('d M Y H:i');
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->translatedFormat('d M Y H:i'),
+        );
+    }
+
+    /**
+     * Interact with the invoices's net_total
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function netTotal(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => $value - ($value * 0.0399 + 39),
+        );
     }
 
     /**
@@ -64,6 +89,6 @@ class Invoice extends Model
      */
     public function getTotalBrlAttribute()
     {
-        return 'R$ '. number_format($this->total / 100, 2, ',', ' ');
+        return number_format($this->total / 100, 2, ',', ' ');
     }
 }

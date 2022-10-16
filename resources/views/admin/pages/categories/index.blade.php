@@ -30,7 +30,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <table class="table table-responsive-md table-striped" id="categories-table">
+            <table class="table table-striped display responsive nowrap" width="100%" id="categories-table">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -43,15 +43,15 @@
                             <td>{{ $category->name }}</td>
                             <td class="project-actions text-right">
                                 @if (!$category->deleted_at)
-                                    <a class="btn btn-info btn-sm" title="Editar"
+                                    <a class="btn btn-default btn-sm" title="Editar"
                                         href="{{ route('categories.edit', $category->id) }}">
-                                        <i class="fas fa-pencil-alt"></i>
+                                        <i class="text-info fas fa-pencil-alt"></i>
                                     </a>
-                                    <a class="btn btn-danger btn-sm" title="Inativar"
+                                    <a class="btn btn-default btn-sm" title="Inativar"
                                         href="{{ route('categories.destroy', $category->id) }}"
                                         onclick="event.preventDefault();
                                         document.getElementById('category-destroy{{ $category->id }}').submit();">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="text-danger fas fa-trash"></i>
                                     </a>
                                     <form action="{{ route('categories.destroy', $category->id) }}" class="d-none"
                                         id="category-destroy{{ $category->id }}" method="POST">
@@ -83,29 +83,10 @@
     <script>
         $(function() {
             $("#categories-table").DataTable({
+                scrollY: true,
+                scrollX: true,
                 "language": {
-                    "sProcessing": "Processando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "Nenhum resultado encontrado",
-                    "sEmptyTable": "Nenhum dado disponível nesta tabela",
-                    "sInfo": "Mostrando registros de _START_ a _END_ de um total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros de 0 a 0 de um total de 0 registros",
-                    "sInfoFiltered": "(filtrado de um total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Pesquisar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Carregando...",
-                    "oPaginate": {
-                        "sFirst": "Primeiro",
-                        "sLast": "Último",
-                        "sNext": "Seguinte",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ativar para ordenar a coluna de maneira ascendente",
-                        "sSortDescending": ": Ativar para ordenar a coluna de maneira descendente"
-                    }
+                    "url": "{{ asset('dataTable/dataTablePortuguese.json') }}"
                 }
             });
         });

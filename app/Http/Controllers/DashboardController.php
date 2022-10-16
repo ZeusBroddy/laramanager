@@ -7,6 +7,7 @@ use App\Models\Ledger;
 use App\Models\Path;
 use App\Models\University;
 use App\Models\User;
+use Illuminate\Support\Facades\Config;
 
 class DashboardController extends Controller
 {
@@ -30,9 +31,12 @@ class DashboardController extends Controller
             ->take(12)
             ->get();
 
-        $balance = Invoice::whereNotNull('paid_at')->sum('total') / 100;
+        $incomesInvoice = Invoice::whereNotNull('paid_at')->sum('total') / 100;
+        $incomesLedger = Ledger::where('type', 'income')->sum('amount');
 
+        $incomes = $incomesInvoice + $incomesLedger;
         $expenses = Ledger::where('type', 'expense')->sum('amount');
+        $balance = $incomes - $expenses;
 
         return view('admin.pages.dashboard.index', [
             'latestEithUsers' => $latestEithUsers,
@@ -40,8 +44,9 @@ class DashboardController extends Controller
             'universities' => $universities,
             'paths' => $paths,
             'invoices' => $invoices,
-            'balance' => $balance,
-            'expenses' => $expenses
+            'incomes' => $incomes,
+            'expenses' => $expenses,
+            'balance' => $balance
         ]);
     }
 }

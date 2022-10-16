@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
-use App\Models\Plan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -20,7 +19,6 @@ class InvoiceController extends Controller
     public function __construct(Invoice $invoice)
     {
         $this->repository = $invoice;
-        // $this->middleware('can:isAdmin');
     }
 
     /**
@@ -75,7 +73,7 @@ class InvoiceController extends Controller
             'token' => ['required', 'string', 'max:255']
         ]);
 
-        $invoice = Invoice::findOrFail($id);
+        $invoice = $this->repository->findOrFail($id);
 
         $response = auth()->user()->charge($invoice->total, $request->token);
 

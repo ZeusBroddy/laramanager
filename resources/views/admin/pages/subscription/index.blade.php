@@ -28,7 +28,7 @@
             </div> --}}
         </div>
         <div class="card-body">
-            <table class="table table-responsive-md table-striped" id="invoices-table">
+            <table class="table table-striped display responsive nowrap" width="100%" id="invoices-table">
                 <thead>
                     <tr>
                         <th>Tipo de cobrança</th>
@@ -44,7 +44,7 @@
                         <tr>
                             <td>Mensalidade: {{ $invoice->due_date_month }}</td>
                             <td>{{ $invoice->description }}</td>
-                            <td>{{ $invoice->total_brl }}</td>
+                            <td>R$ {{ $invoice->total_brl }}</td>
                             <td>{{ $invoice->due_date_formated }}</td>
                             <td>
                                 <span class="badge {{ $invoice->paid_at != null ? 'bg-success' : 'bg-danger' }}">
@@ -74,29 +74,10 @@
     <script>
         $(function() {
             $("#invoices-table").DataTable({
+                scrollY: true,
+                scrollX: true,
                 "language": {
-                    "sProcessing": "Processando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "Nenhum resultado encontrado",
-                    "sEmptyTable": "Nenhum dado disponível nesta tabela",
-                    "sInfo": "Mostrando registros de _START_ a _END_ de um total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros de 0 a 0 de um total de 0 registros",
-                    "sInfoFiltered": "(filtrado de um total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Pesquisar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Carregando...",
-                    "oPaginate": {
-                        "sFirst": "Primeiro",
-                        "sLast": "Último",
-                        "sNext": "Seguinte",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ativar para ordenar a coluna de maneira ascendente",
-                        "sSortDescending": ": Ativar para ordenar a coluna de maneira descendente"
-                    }
+                    "url": "{{ asset('dataTable/dataTablePortuguese.json') }}"
                 }
             });
         });

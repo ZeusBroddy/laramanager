@@ -25,7 +25,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Receitas</span>
-                    <span class="info-box-number">R$ {{ $balance }}</span>
+                    <span class="info-box-number">R$ {{ $incomes }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -54,10 +54,9 @@
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">CPU Traffic</span>
+                    <span class="info-box-text">Caixa</span>
                     <span class="info-box-number">
-                        10
-                        <small>%</small>
+                        R$ {{ $balance }}
                     </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -132,7 +131,7 @@
                     <!-- /.card-header -->
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table m-0">
+                            <table class="table m-0 table-hover">
                                 <thead>
                                     <tr>
                                         <th>Usuário</th>
@@ -149,7 +148,7 @@
                                             <td>{{ $invoice->user->name }}</td>
                                             <td>Mensalidade: {{ $invoice->due_date_month }}</td>
                                             <td>Cartão</td>
-                                            <td>{{ $invoice->total_brl }}</td>
+                                            <td>R$ {{ $invoice->total_brl }}</td>
                                             <td>{{ $invoice->paid_at_formated }}</td>
                                             <td>
                                                 <span

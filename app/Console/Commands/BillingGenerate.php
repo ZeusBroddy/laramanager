@@ -43,6 +43,7 @@ class BillingGenerate extends Command
                 'user_id' => $user->id,
                 'description' => "{$user->name} - Mensalidade",
                 'total' => $plan->amount,
+                'net_total' => $plan->amount,
                 'paid_at' => null,
                 'due_date' => Carbon::now()->addRealDays(10)
             ]);

@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('plan_id');
             $table->string('description')->nullable();
             $table->double('total', 10, 2);
+            $table->double('net_total', 10, 2);
             $table->string('stripe_id')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->date('due_date');
@@ -27,10 +27,6 @@ return new class extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade');
-            $table->foreign('plan_id')
-                ->references('id')
-                ->on('plans')
                 ->onDelete('cascade');
         });
     }

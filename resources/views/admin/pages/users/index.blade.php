@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-responsive-md table-striped" id="users-table">
+            <table class="table table-striped display responsive nowrap" width="100%" id="users-table">
                 <thead>
                     <tr>
                         <th>Usuário</th>
@@ -68,15 +68,15 @@
                             <td>{{ $user->created_at_formated }}</td>
                             <td class="project-actions text-right">
                                 @if (!$user->deleted_at)
-                                    <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user->id) }}"
+                                    <a class="btn btn-default btn-sm" href="{{ route('users.edit', $user->id) }}"
                                         title="Editar">
-                                        <i class="fas fa-pencil-alt"></i>
+                                        <i class="text-info fas fa-pencil-alt"></i>
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="{{ route('users.destroy', $user->id) }}"
+                                    <a class="btn btn-default btn-sm" href="{{ route('users.destroy', $user->id) }}"
                                         title="Remover"
                                         onclick="event.preventDefault();
                                         document.getElementById('user-destroy{{ $user->id }}').submit();">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="text-danger fas fa-trash"></i>
                                     </a>
                                     <form action="{{ route('users.destroy', $user->id) }}" class="d-none"
                                         id="user-destroy{{ $user->id }}" method="POST">
@@ -84,9 +84,9 @@
                                         @method('DELETE')
                                     </form>
                                 @else
-                                    <a class="btn btn-secondary btn-sm" href="{{ route('users.restore', $user->id) }}"
+                                    <a class="btn btn-default btn-sm" href="{{ route('users.restore', $user->id) }}"
                                         title="Restaurar">
-                                        <i class="fas fa-reply"></i>
+                                        <i class="text-secondary fas fa-reply"></i>
                                     </a>
                                 @endif
                             </td>
@@ -108,29 +108,10 @@
     <script>
         $(function() {
             $("#users-table").DataTable({
+                scrollY: true,
+                scrollX: true,
                 "language": {
-                    "sProcessing": "Processando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "Nenhum resultado encontrado",
-                    "sEmptyTable": "Nenhum dado disponível nesta tabela",
-                    "sInfo": "Mostrando registros de _START_ a _END_ de um total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros de 0 a 0 de um total de 0 registros",
-                    "sInfoFiltered": "(filtrado de um total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Pesquisar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Carregando...",
-                    "oPaginate": {
-                        "sFirst": "Primeiro",
-                        "sLast": "Último",
-                        "sNext": "Seguinte",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ativar para ordenar a coluna de maneira ascendente",
-                        "sSortDescending": ": Ativar para ordenar a coluna de maneira descendente"
-                    }
+                    "url": "{{ asset('dataTable/dataTablePortuguese.json') }}"
                 }
             });
         });

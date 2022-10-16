@@ -25,7 +25,7 @@
 
                     <h3 class="profile-username text-center">Mensalidade: {{ $invoice->due_date_month }}</h3>
 
-                    <p class="text-xl text-center">{{ $invoice->total_brl }}</p>
+                    <p class="text-xl text-center">R$ {{ $invoice->total }}</p>
                 </div>
                 <!-- /.card-body -->
             </div>

@@ -2,7 +2,7 @@
 
     <div class="form-group">
         <label for="">Rota:</label>
-        <select name="path_id" class="form-control select2 @error('path_id') is-invalid @enderror">
+        <select name="path_id" class="form-control select2 @error('path_id') is-invalid @enderror" style="width: 100%">
             @foreach ($paths as $path)
                 <option value="{{ $path->id }}"
                     @isset($university)
@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group row">
-        <div class="col-6">
+        <div class="col-sm-6">
             <label for="">Endereço:</label>
             <input type="text" name="address" class="form-control @error('address') is-invalid @enderror"
                 placeholder="Av São Paulo, 1111" value="{{ $university->address ?? old('address') }}">
@@ -45,7 +45,7 @@
             @enderror
         </div>
 
-        <div class="col-6">
+        <div class="col-sm=6">
             <label for="">Bairro:</label>
             <input type="text" name="district" class="form-control @error('district') is-invalid @enderror"
                 placeholder="Centro" value="{{ $university->district ?? old('district') }}">
@@ -59,7 +59,7 @@
     </div>
 
     <div class="form-group row">
-        <div class="col-6">
+        <div class="col-sm-6">
             <label for="">Cidade:</label>
             <input type="text" name="city" class="form-control @error('city') is-invalid @enderror"
                 placeholder="Cacoal" value="{{ $university->city ?? old('city') }}">
@@ -71,7 +71,7 @@
             @enderror
         </div>
 
-        <div class="col-6">
+        <div class="col-sm-6">
             <label for="inputLogo">Logo da Faculdade:</label>
             <div class="input-group">
                 <div class="custom-file">

@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-6">
+                            <div class="col-sm-6">
                                 <label for="">Cidade:</label>
                                 <input type="text" name="city"
                                     class="form-control @error('city') is-invalid @enderror"
@@ -74,7 +74,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-sm-6">
                                 <label for="">CEP:</label>
                                 <input type="text" name="postal_code"
                                     class="form-control @error('postal_code') is-invalid @enderror"

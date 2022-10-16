@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-responsive-md table-striped" id="plans-table">
+            <table class="table table-striped display responsive nowrap" width="100%" id="plans-table">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -50,15 +50,15 @@
                                 </span>
                             </td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm" href="{{ route('plans.edit', $plan->id) }}"
+                                <a class="btn btn-default btn-sm" href="{{ route('plans.edit', $plan->id) }}"
                                     title="Editar">
-                                    <i class="fas fa-pencil-alt"></i>
+                                    <i class="text-info fas fa-pencil-alt"></i>
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="{{ route('plans.destroy', $plan->id) }}"
+                                <a class="btn btn-default btn-sm" href="{{ route('plans.destroy', $plan->id) }}"
                                     title="Remover"
                                     onclick="event.preventDefault();
                                     document.getElementById('plan-destroy{{ $plan->id }}').submit();">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="text-danger fas fa-trash"></i>
                                 </a>
                                 <form action="{{ route('plans.destroy', $plan->id) }}" class="d-none"
                                     id="plan-destroy{{ $plan->id }}" method="POST">
@@ -84,29 +84,10 @@
     <script>
         $(function() {
             $("#plans-table").DataTable({
+                scrollY: true,
+                scrollX: true,
                 "language": {
-                    "sProcessing": "Processando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "Nenhum resultado encontrado",
-                    "sEmptyTable": "Nenhum dado disponível nesta tabela",
-                    "sInfo": "Mostrando registros de _START_ a _END_ de um total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros de 0 a 0 de um total de 0 registros",
-                    "sInfoFiltered": "(filtrado de um total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Pesquisar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Carregando...",
-                    "oPaginate": {
-                        "sFirst": "Primeiro",
-                        "sLast": "Último",
-                        "sNext": "Seguinte",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ativar para ordenar a coluna de maneira ascendente",
-                        "sSortDescending": ": Ativar para ordenar a coluna de maneira descendente"
-                    }
+                    "url": "{{ asset('dataTable/dataTablePortuguese.json') }}"
                 }
             });
         });

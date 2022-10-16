@@ -89,4 +89,12 @@ class User extends Authenticatable
     {
         return $this->created_at->format('d/m/Y');
     }
+
+    public function adminlte_image()
+    {
+        if ($this->profile->avatar) {
+            return asset('storage/' . $this->profile->avatar);
+        }
+        return asset('img/profiles/avatar.jpg');
+    }
 }

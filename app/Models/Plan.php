@@ -22,7 +22,15 @@ class Plan extends Model
     ];
 
     /**
-     * Get the total formated to brl
+     * Get the amount formated
+     */
+    public function getAmountFormatedAttribute()
+    {
+        return $this->amount / 100;
+    }
+
+    /**
+     * Get the amount formated to brl
      */
     public function getAmountBrlAttribute()
     {
