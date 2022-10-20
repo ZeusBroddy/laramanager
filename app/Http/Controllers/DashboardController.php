@@ -8,6 +8,7 @@ use App\Models\Path;
 use App\Models\University;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -38,6 +39,11 @@ class DashboardController extends Controller
         $expenses = Ledger::where('type', 'expense')->sum('amount');
         $balance = $incomes - $expenses;
 
+        $totalInvoicesByMonth = DB::table('invoices')
+            ->select(DB::raw('SUM(total / 100) as total_invoice, MONTH(created_at) as month, YEAR(created_at) as year'))
+            ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC'))
+            ->get();
+
         return view('admin.pages.dashboard.index', [
             'latestEithUsers' => $latestEithUsers,
             'usersCount' => $usersCount,
@@ -46,7 +52,8 @@ class DashboardController extends Controller
             'invoices' => $invoices,
             'incomes' => $incomes,
             'expenses' => $expenses,
-            'balance' => $balance
+            'balance' => $balance,
+            'totalInvoicesByMonth' => $totalInvoicesByMonth
         ]);
     }
 }

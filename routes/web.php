@@ -83,6 +83,7 @@ Route::prefix('admin')
          */
         Route::get('users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
         Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::get('users/{id}/show', [UserController::class, 'show'])->name('users.show');
         Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
         Route::delete('users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
         Route::get('users/create', [UserController::class, 'create'])->name('users.create');
@@ -90,6 +91,12 @@ Route::prefix('admin')
         Route::post('users', [UserController::class, 'store'])->name('users.store');
 
         Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
+
+        Route::get('subscriptions/{id}/edit', [InvoiceController::class, 'edit'])->name('subscriptions.edit');
+        Route::put('subscriptions/{id}', [InvoiceController::class, 'update'])->name('subscriptions.update');
+        Route::delete('subscriptions/{id}', [InvoiceController::class, 'destroy'])->name('subscriptions.destroy');
+        Route::get('users/{id}/subscriptions/create', [InvoiceController::class, 'create'])->name('subscriptions.create');
+        Route::post('users/{id}/subscriptions', [InvoiceController::class, 'store'])->name('subscriptions.store');
     });
 
 Route::middleware(['auth'])->group(function () {
@@ -103,10 +110,10 @@ Route::middleware(['auth'])->group(function () {
      * Subscription Routes
      */
     Route::get('subscriptions/invoice/{id}', [InvoiceController::class, 'downloadInvoice'])->name('subscriptions.invoice.download');
-    Route::put('subscriptions/{id}', [InvoiceController::class, 'update'])->name('subscriptions.update');
-    Route::get('subscriptions/account', [InvoiceController::class, 'account'])->name('subscriptions.account');
+    Route::put('subscriptions/{id}', [InvoiceController::class, 'paying'])->name('subscriptions.paying');
+    Route::get('subscriptions/history', [InvoiceController::class, 'history'])->name('subscriptions.history');
     Route::get('subscriptions/checkout/{id}', [InvoiceController::class, 'checkout'])->name('subscriptions.checkout');
-    Route::get('subscriptions', [InvoiceController::class, 'index'])->name('subscriptions.index');
+    Route::get('subscriptions/payable', [InvoiceController::class, 'payable'])->name('subscriptions.payable');
 
     /**
      * Dashboard Route

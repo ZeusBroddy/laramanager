@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-striped display responsive nowrap" width="100%" id="users-table">
+            <table class="table table-striped display responsive nowrap" style="width: 100%" id="users-table">
                 <thead>
                     <tr>
                         <th>Categoria</th>

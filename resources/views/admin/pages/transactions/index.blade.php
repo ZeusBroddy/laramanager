@@ -22,7 +22,7 @@
             <h3 class="card-title">Transações</h3>
         </div>
         <div class="card-body">
-            <table class="table table-striped display responsive nowrap" width="100%" id="transactions_table">
+            <table class="table table-striped display responsive nowrap" style="width: 100%" id="transactions_table">
                 <thead>
                     <tr>
                         <th>Usuário</th>

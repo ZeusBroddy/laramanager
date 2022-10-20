@@ -25,7 +25,7 @@
 
                     <h3 class="profile-username text-center">Mensalidade: {{ $invoice->due_date_month }}</h3>
 
-                    <p class="text-xl text-center">R$ {{ $invoice->total }}</p>
+                    <p class="text-xl text-center">R$ {{ $invoice->total_brl }}</p>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -37,7 +37,7 @@
                     <h3 class="card-title">Informações de Pagamento</h3>
                 </div>
 
-                <form action="{{ route('subscriptions.update', $invoice->id) }}" class="form" method="POST" id="form">
+                <form action="{{ route('subscriptions.paying', $invoice->id) }}" class="form" method="POST" id="form">
                     @csrf
                     @method('PUT')
 
@@ -99,7 +99,7 @@
         const cardHolderName = document.getElementById('card-holder-name');
         const cardButton = document.getElementById('card-button');
 
-        cardButton.addEventListener('click', async (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             //gerando o token

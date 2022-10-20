@@ -38,6 +38,5 @@ class UserSeeder extends Seeder
             ->has(Profile::factory())
             ->count(20)
             ->create();
-
     }
 }

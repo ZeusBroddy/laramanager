@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-striped display responsive nowrap" width="100%" id="paths-table">
+            <table class="table table-striped display responsive nowrap" style="width: 100%" id="paths-table">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -40,10 +40,12 @@
                         <tr>
                             <td>{{ $path->name }}</td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-default btn-sm" href="{{ route('paths.edit', $path->id) }}" title="Editar">
+                                <a class="btn btn-default btn-sm" href="{{ route('paths.edit', $path->id) }}"
+                                    title="Editar">
                                     <i class="text-info fas fa-pencil-alt"></i>
                                 </a>
-                                <a class="btn btn-default btn-sm" href="{{ route('paths.destroy', $path->id) }}" title="Remover"
+                                <a class="btn btn-default btn-sm" href="{{ route('paths.destroy', $path->id) }}"
+                                    title="Remover"
                                     onclick="event.preventDefault();
                                         document.getElementById('paht-destroy{{ $path->id }}').submit();">
                                     <i class="text-danger fas fa-trash"></i>

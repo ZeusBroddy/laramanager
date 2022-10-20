@@ -19,22 +19,17 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Cobranças</h3>
-
-            {{-- <div class="card-tools">
-                <a href="{{ route('plans.create') }}" class="btn btn-tool" title="Novo">
-                    <i class="fas fa-plus"></i>
-                </a>
-            </div> --}}
+            <h3 class="card-title">Histórico</h3>
         </div>
+
         <div class="card-body">
-            <table class="table table-striped display responsive nowrap" width="100%" id="invoices-table">
+            <table class="table table-striped display responsive nowrap" style="width: 100%" id="subscription_table">
                 <thead>
                     <tr>
                         <th>Tipo de cobrança</th>
                         <th>Descrição</th>
                         <th>Valor</th>
-                        <th>Vencimento</th>
+                        <th>Pago Em</th>
                         <th>Status</th>
                         <th class="text-right">Ações</th>
                     </tr>
@@ -45,15 +40,16 @@
                             <td>Mensalidade: {{ $invoice->due_date_month }}</td>
                             <td>{{ $invoice->description }}</td>
                             <td>R$ {{ $invoice->total_brl }}</td>
-                            <td>{{ $invoice->due_date_formated }}</td>
+                            <td>{{ $invoice->paid_at_formated }}</td>
                             <td>
                                 <span class="badge {{ $invoice->paid_at != null ? 'bg-success' : 'bg-danger' }}">
                                     {{ $invoice->paid_at != null ? 'Finalizado' : 'A pagar' }}
                                 </span>
                             </td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm" href="{{ route('subscriptions.checkout', $invoice->id) }}" title="Pagar com Stripe">
-                                    <i class="fas fa-credit-card"></i>
+                                <a class="btn btn-default btn-sm" title="Baixar fatura"
+                                    href="{{ route('subscriptions.invoice.download', $invoice->id) }}">
+                                    <i class="text-info fas fa-file-pdf"></i>
                                 </a>
                             </td>
                         </tr>
@@ -73,7 +69,7 @@
 @section('js')
     <script>
         $(function() {
-            $("#invoices-table").DataTable({
+            $("#subscription_table").DataTable({
                 scrollY: true,
                 scrollX: true,
                 "language": {

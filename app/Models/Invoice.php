@@ -37,39 +37,36 @@ class Invoice extends Model
     }
 
     /**
-     * Interact with the invoice's due_date.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     * Get the due_date formated to month in portuguese
      */
-    protected function dueDateMonth(): Attribute
+    public function getDueDateMonthAttribute()
     {
-        return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->translatedFormat('F'),
-        );
+        if ($this->due_date) {
+            return Carbon::parse($this->due_date)->translatedFormat('F');
+        }
+        return null;
     }
 
     /**
-     * Interact with the invoice's due_date.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     * Get the due_date formated in portuguese
      */
-    protected function dueDateFormated(): Attribute
+    public function getDueDateFormatedAttribute()
     {
-        return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('d/m/Y'),
-        );
+        if ($this->due_date) {
+            return Carbon::parse($this->due_date)->format('d/m/Y');
+        }
+        return null;
     }
 
     /**
-     * Interact with the invoice's paid_at.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     * Get the due_date formated in portuguese
      */
-    protected function paidAtFormated(): Attribute
+    public function getPaidAtFormatedAttribute()
     {
-        return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->translatedFormat('d M Y H:i'),
-        );
+        if ($this->paid_at) {
+            return Carbon::parse($this->paid_at)->translatedFormat('d M Y H:i');
+        }
+        return null;
     }
 
     /**
@@ -90,5 +87,17 @@ class Invoice extends Model
     public function getTotalBrlAttribute()
     {
         return number_format($this->total / 100, 2, ',', ' ');
+    }
+
+    /**
+     * Interact with the invoices's total
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function total(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => $value * 100,
+        );
     }
 }

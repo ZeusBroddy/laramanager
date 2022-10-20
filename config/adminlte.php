@@ -312,9 +312,20 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'subscription',
-            'url'  => '/subscriptions',
-            'icon' => 'fas fa-fw fa-calendar-alt',
+            'text'    => 'subscription',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'A pagar',
+                    'url'  => '/subscriptions/payable',
+                    'icon' => 'fas fa-fw fa-calendar-alt',
+                ],
+                [
+                    'text' => 'Histórico',
+                    'url'  => '/subscriptions/history',
+                    'icon' => 'fas fa-fw fa-calendar-alt',
+                ],
+            ],
         ],
 
         ['header' => 'ADMIN', 'can' => 'isAdmin'],

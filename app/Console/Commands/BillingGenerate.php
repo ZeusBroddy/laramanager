@@ -41,7 +41,7 @@ class BillingGenerate extends Command
         foreach ($users as $user) {
             Invoice::create([
                 'user_id' => $user->id,
-                'description' => "{$user->name} - Mensalidade",
+                'description' => 'Mensalidade - ' . Carbon::now()->translatedFormat('F'),
                 'total' => $plan->amount,
                 'net_total' => $plan->amount,
                 'paid_at' => null,

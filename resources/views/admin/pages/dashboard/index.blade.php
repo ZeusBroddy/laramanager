@@ -84,13 +84,10 @@
     <div class="row">
         <!-- Left col -->
         <div class="col-md-8">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card">
+            {{-- <!-- BAR CHART -->
+            <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">
-                        <i class="fas fa-chart-pie mr-1"></i>
-                        Financeiro
-                    </h3>
+                    <h3 class="card-title">Bar Chart</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -101,17 +98,15 @@
                         </button>
                     </div>
                 </div>
-                <!-- /.card-header -->
                 <div class="card-body">
-                    <div class="tab-content p-0">
-                        <!-- Morris chart - Sales -->
-                        <div class="chart tab-pane active" style="position: relative; height: 300px;">
-                            <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                        </div>
+                    <div class="chart">
+                        <canvas id="barChart"
+                            style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
                     </div>
-                </div><!-- /.card-body -->
+                </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+            <!-- /.card --> --}}
 
             <!-- TABLE: LATEST TRANSACTIONS -->
             @if (count($invoices) > 0)
@@ -146,7 +141,7 @@
                                     @foreach ($invoices as $invoice)
                                         <tr>
                                             <td>{{ $invoice->user->name }}</td>
-                                            <td>Mensalidade: {{ $invoice->due_date_month }}</td>
+                                            <td>{{ $invoice->description }}</td>
                                             <td>Cartão</td>
                                             <td>R$ {{ $invoice->total_brl }}</td>
                                             <td>{{ $invoice->paid_at_formated }}</td>
@@ -327,67 +322,6 @@
                 type: 'doughnut',
                 data: donutData,
                 options: donutOptions
-            })
-
-
-            /* Chart.js Charts */
-            // Sales chart
-            var salesChartCanvas = document.getElementById('revenue-chart-canvas').getContext('2d')
-            // $('#revenue-chart').get(0).getContext('2d');
-
-            var salesChartData = {
-                labels: ['Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro'],
-                datasets: [{
-                        label: 'Digital Goods',
-                        backgroundColor: 'rgba(60,141,188,0.9)',
-                        borderColor: 'rgba(60,141,188,0.8)',
-                        pointRadius: false,
-                        pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    },
-                    {
-                        label: 'Electronics',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
-                        pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    }
-                ]
-            }
-
-            var salesChartOptions = {
-                maintainAspectRatio: false,
-                responsive: true,
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [{
-                        gridLines: {
-                            display: false
-                        }
-                    }],
-                    yAxes: [{
-                        gridLines: {
-                            display: false
-                        }
-                    }]
-                }
-            }
-
-            // This will get the first returned node in the jQuery collection.
-            // eslint-disable-next-line no-unused-vars
-            var salesChart = new Chart(salesChartCanvas, { // lgtm[js/unused-local-variable]
-                type: 'line',
-                data: salesChartData,
-                options: salesChartOptions
             })
         })
     </script>

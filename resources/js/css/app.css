@@ -34,6 +34,10 @@
 
 @layer components {
     /* General */
+    .container {
+        @apply max-w-
+    }
+
     .font-body {
 
     }
@@ -48,7 +52,10 @@
 
     /* Banner */
     .banner {
-        @apply bg-[url('../../public/img/main/hero.svg')] bg-no-repeat bg-cover bg-[left_center] pt-0 pb-[100px] text-white rounded-b-none sm:pb-[65px] lg:rounded-b-[100px];
+        @apply bg-[url('../../public/img/main/hero.svg')] bg-no-repeat
+        bg-cover bg-[left_center] pt-0 pb-[100px]
+        text-white rounded-b-none sm:pb-[65px]
+        lg:rounded-b-[100px];
     }
 
     .banner-inner-content {

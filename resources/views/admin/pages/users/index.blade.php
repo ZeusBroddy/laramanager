@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-striped display responsive nowrap" width="100%" id="users-table">
+            <table class="table table-striped display responsive nowrap" style="width: 100%" id="users-table">
                 <thead>
                     <tr>
                         <th>Usuário</th>
@@ -67,6 +67,10 @@
                             </td>
                             <td>{{ $user->created_at_formated }}</td>
                             <td class="project-actions text-right">
+                                <a class="btn btn-default btn-sm" href="{{ route('users.show', $user->id) }}"
+                                    title="Visualizar">
+                                    <i class="text-primary fas fa-eye"></i>
+                                </a>
                                 @if (!$user->deleted_at)
                                     <a class="btn btn-default btn-sm" href="{{ route('users.edit', $user->id) }}"
                                         title="Editar">
