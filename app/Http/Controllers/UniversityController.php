@@ -125,6 +125,19 @@ class UniversityController extends Controller
     }
 
     /**
+     * Show the form for deleting the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $university = $this->repository->findOrFail($id);
+
+        return view('admin.pages.universities._partials.delete', compact('university'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

@@ -56,17 +56,11 @@
                                     title="Editar">
                                     <i class="text-info fas fa-pencil-alt"></i>
                                 </a>
-                                <a class="btn btn-default btn-sm"
-                                    href="{{ route('universities.destroy', $university->id) }}" title="Remover"
-                                    onclick="event.preventDefault();
-                                        document.getElementById('university-destroy{{ $university->id }}').submit();">
+                                <a class="btn btn-default btn-sm" title="Inativar" data-toggle="modal" id="smallButton"
+                                    data-target="#smallModal"
+                                    data-attr="{{ route('universities.delete', $university->id) }}">
                                     <i class="text-danger fas fa-trash"></i>
                                 </a>
-                                <form action="{{ route('universities.destroy', $university->id) }}" class="d-none"
-                                    id="university-destroy{{ $university->id }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -76,6 +70,8 @@
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
+
+    @include('admin.components.modal')
 @stop
 
 @section('footer')
@@ -94,4 +90,6 @@
             });
         });
     </script>
+
+    <script src="{{ asset('js/modal.js') }}"></script>
 @stop

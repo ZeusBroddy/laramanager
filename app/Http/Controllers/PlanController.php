@@ -101,6 +101,19 @@ class PlanController extends Controller
     }
 
     /**
+     * Show the form for deleting the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $plan = $this->repository->findOrFail($id);
+
+        return view('admin.pages.plans._partials.delete', compact('plan'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -110,13 +123,11 @@ class PlanController extends Controller
     {
         $plan = $this->repository->findOrFail($id);
 
-        $plan->update([
-            'status' => 'archived'
-        ]);
+        $plan->delete();
 
         return redirect()->route('plans.index')->with([
             'alert-type' => 'success',
-            'message' => 'Registro inativado com sucesso!'
+            'message' => 'Registro removido com sucesso!'
         ]);
     }
 }

@@ -76,17 +76,10 @@
                                         title="Editar">
                                         <i class="text-info fas fa-pencil-alt"></i>
                                     </a>
-                                    <a class="btn btn-default btn-sm" href="{{ route('users.destroy', $user->id) }}"
-                                        title="Remover"
-                                        onclick="event.preventDefault();
-                                        document.getElementById('user-destroy{{ $user->id }}').submit();">
+                                    <a class="btn btn-default btn-sm" title="Inativar" data-toggle="modal" id="smallButton"
+                                        data-target="#smallModal" data-attr="{{ route('users.delete', $user->id) }}">
                                         <i class="text-danger fas fa-trash"></i>
                                     </a>
-                                    <form action="{{ route('users.destroy', $user->id) }}" class="d-none"
-                                        id="user-destroy{{ $user->id }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
                                 @else
                                     <a class="btn btn-default btn-sm" href="{{ route('users.restore', $user->id) }}"
                                         title="Restaurar">
@@ -102,6 +95,8 @@
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
+
+    @include('admin.components.modal')
 @stop
 
 @section('footer')
@@ -120,4 +115,6 @@
             });
         });
     </script>
+
+    <script src="{{ asset('js/modal.js') }}"></script>
 @stop

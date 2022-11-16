@@ -92,6 +92,19 @@ class PathController extends Controller
     }
 
     /**
+     * Show the form for deleting the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $path = $this->repository->findOrFail($id);
+
+        return view('admin.pages.paths._partials.delete', compact('path'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

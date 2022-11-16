@@ -107,6 +107,19 @@ class InvoiceController extends Controller
     }
 
     /**
+     * Show the form for deleting the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $invoice = $this->repository->findOrFail($id);
+
+        return view('admin.pages.users._partials.invoice-delete', compact('invoice'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -181,10 +194,16 @@ class InvoiceController extends Controller
         ]);
 
         $user = auth()->user();
-
         $invoice = $user->invoices()->findOrFail($id);
 
-        $response = $user->charge($invoice->total, $request->token);
+        try {
+            $response = $user->charge($invoice->total, $request->token);
+          } catch(\Stripe\Exception\CardException $e) {
+            return redirect()->route('dashboard')->with([
+                'alert-type' => 'error',
+                'message' => $e->getError()->message
+            ]);
+          }
 
         $invoice->update([
             'paid_at' =>  Carbon::createFromTimestamp($response->created),
@@ -210,7 +229,6 @@ class InvoiceController extends Controller
     }
 
     /**
-     * https://laravel.com/docs/9.x/billing#generating-invoice-pdfs
      *
      * @return \Illuminate\Http\Response
      */

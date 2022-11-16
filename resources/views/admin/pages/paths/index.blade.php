@@ -44,17 +44,10 @@
                                     title="Editar">
                                     <i class="text-info fas fa-pencil-alt"></i>
                                 </a>
-                                <a class="btn btn-default btn-sm" href="{{ route('paths.destroy', $path->id) }}"
-                                    title="Remover"
-                                    onclick="event.preventDefault();
-                                        document.getElementById('paht-destroy{{ $path->id }}').submit();">
+                                <a class="btn btn-default btn-sm" title="Remover" data-toggle="modal" id="smallButton"
+                                    data-target="#smallModal" data-attr="{{ route('paths.delete', $path->id) }}">
                                     <i class="text-danger fas fa-trash"></i>
                                 </a>
-                                <form action="{{ route('paths.destroy', $path->id) }}" class="d-none"
-                                    id="paht-destroy{{ $path->id }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -64,6 +57,8 @@
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
+
+    @include('admin.components.modal')
 @stop
 
 @section('footer')
@@ -82,4 +77,6 @@
             });
         });
     </script>
+
+    <script src="{{ asset('js/modal.js')}}"></script>
 @stop

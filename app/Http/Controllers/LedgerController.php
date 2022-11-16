@@ -78,17 +78,6 @@ class LedgerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -127,6 +116,19 @@ class LedgerController extends Controller
             'alert-type' => 'success',
             'message' => 'Registro atualizado com sucesso!'
         ]);
+    }
+
+    /**
+     * Show the form for deleting the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $entry = $this->repository->findOrFail($id);
+
+        return view('admin.pages.ledger._partials.delete', compact('entry'));
     }
 
     /**

@@ -53,7 +53,7 @@
     <div class="form-group row">
         <div class="col-sm-6">
             <label for="">Valor:</label>
-            <input type="number" name="amount" class="form-control @error('amount') is-invalid @enderror"
+            <input type="number" step=".01" name="amount" class="form-control @error('amount') is-invalid @enderror"
                 placeholder="Digite o valor" value="{{ $entry->amount ?? old('amount') }}">
 
             @error('amount')

@@ -47,17 +47,11 @@
                                         href="{{ route('categories.edit', $category->id) }}">
                                         <i class="text-info fas fa-pencil-alt"></i>
                                     </a>
-                                    <a class="btn btn-default btn-sm" title="Inativar"
-                                        href="{{ route('categories.destroy', $category->id) }}"
-                                        onclick="event.preventDefault();
-                                        document.getElementById('category-destroy{{ $category->id }}').submit();">
+                                    <a class="btn btn-default btn-sm" title="Inativar" data-toggle="modal" id="smallButton"
+                                        data-target="#smallModal"
+                                        data-attr="{{ route('categories.delete', $category->id) }}">
                                         <i class="text-danger fas fa-trash"></i>
                                     </a>
-                                    <form action="{{ route('categories.destroy', $category->id) }}" class="d-none"
-                                        id="category-destroy{{ $category->id }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
                                 @else
                                     <a class="btn btn-secondary btn-sm" title="Restaurar"
                                         href="{{ route('categories.restore', $category->id) }}">
@@ -73,6 +67,8 @@
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
+
+    @include('admin.components.modal')
 @stop
 
 @section('footer')
@@ -91,4 +87,6 @@
             });
         });
     </script>
+
+    <script src="{{ asset('js/modal.js')}}"></script>
 @stop

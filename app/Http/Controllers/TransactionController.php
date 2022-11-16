@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -23,8 +24,9 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        // $invoices = (new StripeController)->getInvoices();
+        $invoices = Invoice::with('user')
+        ->get();
 
-        return view('admin.pages.transactions.index');
+        return view('admin.pages.transactions.index', compact('invoices'));
     }
 }

@@ -51,9 +51,9 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        // static::created(function ($user) {
-        //     $user->createAsStripeCustomer();
-        // });
+        static::created(function ($user) {
+            $user->createAsStripeCustomer();
+        });
     }
 
     public function isAdmin(): bool

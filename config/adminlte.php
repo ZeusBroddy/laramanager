@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'LARAmanager',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>LARA</b>manager',
     'logo_img' => 'img/logo/logo-bus.svg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'LARAmanager Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -110,7 +110,7 @@ return [
         'enabled' => true,
         'img' => [
             'path' => 'img/logo/logo-bus.svg',
-            'alt' => 'AdminLTE Preloader Image',
+            'alt' => 'LARAmanager Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,
@@ -256,9 +256,9 @@ return [
     'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
-    'register_url' => 'register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
+    'register_url' => false,
+    'password_reset_url' => 'reset-password',
+    'password_email_url' => 'forgot-password',
     'profile_url' => false,
 
     /*
@@ -335,25 +335,25 @@ return [
             'icon' => 'fas fa-fw fa-users',
             'can' => 'isAdmin',
         ],
-        [
-            'text' => 'settings',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-cog',
-            'can' => 'isAdmin',
-        ],
-        [
-            'text'    => 'content',
-            'icon'    => 'fas fa-fw fa-share',
-            'can' => 'isAdmin',
-            'submenu' => [
-                [
-                    'text' => 'pages',
-                    'url'  => 'admin/pages',
-                    'icon' => 'fas fa-fw fa-desktop',
-                    'can' => 'isAdmin',
-                ],
-            ],
-        ],
+        // [
+        //     'text' => 'settings',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-cog',
+        //     'can' => 'isAdmin',
+        // ],
+        // [
+        //     'text'    => 'content',
+        //     'icon'    => 'fas fa-fw fa-share',
+        //     'can' => 'isAdmin',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'pages',
+        //             'url'  => 'admin/pages',
+        //             'icon' => 'fas fa-fw fa-desktop',
+        //             'can' => 'isAdmin',
+        //         ],
+        //     ],
+        // ],
         [
             'text'    => 'subscriptions',
             'icon'    => 'fas fa-fw fa-share',

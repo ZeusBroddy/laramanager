@@ -26,29 +26,25 @@
                 <thead>
                     <tr>
                         <th>Usuário</th>
+                        <th>Descrição</th>
                         <th>Tipo</th>
                         <th>Total</th>
                         <th>Pago em</th>
                         <th>Status</th>
-                        <th class="text-right">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($invoices as $invoice)
                         <tr>
-                            <td>{{ $invoice['name'] }}</td>
-                            <td>Cartão de crédito</td>
-                            <td>{{ $invoice['total'] }}</td>
-                            <td>{{ $invoice['paid_at'] }}</td>
+                            <td>{{ $invoice->user->name }}</td>
+                            <td>{{ $invoice->description }}</td>
+                            <td>Cartão</td>
+                            <td>R$ {{ $invoice->total_brl }}</td>
+                            <td>{{ $invoice->paid_at_formated }}</td>
                             <td>
-                                <span class="badge {{ $invoice['paid'] == true ? 'bg-success' : 'bg-danger' }}">
-                                    {{ $invoice['paid'] == true ? 'Finalizado' : 'Error' }}
+                                <span class="badge {{ $invoice->paid_at != null ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $invoice->paid_at != null ? 'Finalizado' : 'A pagar' }}
                                 </span>
-                            </td>
-                            <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm" href="{{ $invoice['pdf'] }}" title="Baixar fatura">
-                                    <i class="fas fa-file-pdf"></i>
-                                </a>
                             </td>
                         </tr>
                     @endforeach

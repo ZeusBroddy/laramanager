@@ -108,21 +108,15 @@
                                     </td>
                                     <td class="project-actions text-right">
                                         @if ($invoice->paid_at == null)
-                                            <a class="btn btn-default btn-sm" href="{{ route('subscriptions.edit', $invoice->id) }}"
-                                                title="Editar">
+                                            <a class="btn btn-default btn-sm"
+                                                href="{{ route('subscriptions.edit', $invoice->id) }}" title="Editar">
                                                 <i class="text-info fas fa-pencil-alt"></i>
                                             </a>
-                                            <a class="btn btn-default btn-sm"
-                                                href="{{ route('subscriptions.destroy', $invoice->id) }}" title="Remover"
-                                                onclick="event.preventDefault();
-                                            document.getElementById('user-destroy{{ $invoice->id }}').submit();">
+                                            <a class="btn btn-default btn-sm" title="Inativar" data-toggle="modal"
+                                                id="smallButton" data-target="#smallModal"
+                                                data-attr="{{ route('subscriptions.delete', $invoice->id) }}">
                                                 <i class="text-danger fas fa-trash"></i>
                                             </a>
-                                            <form action="{{ route('subscriptions.destroy', $invoice->id) }}" class="d-none"
-                                                id="user-destroy{{ $invoice->id }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
                                         @else
                                             <a class="btn btn-default btn-sm" title="Baixar fatura"
                                                 href="{{ route('subscriptions.invoice.download', $invoice->id) }}">
@@ -142,6 +136,8 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
+
+    @include('admin.components.modal')
 @stop
 
 @section('footer')
@@ -160,4 +156,6 @@
             });
         });
     </script>
+
+    <script src="{{ asset('js/modal.js') }}"></script>
 @stop
