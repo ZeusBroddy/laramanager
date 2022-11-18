@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dollar-sign"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Receitas</span>
@@ -33,7 +33,7 @@
         <!-- /.col -->
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-funnel-dollar"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Despesas</span>
@@ -51,7 +51,7 @@
         <div class="col-12 col-sm-6 col-md-3">
             <!-- /.info-box -->
             <div class="info-box">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-hand-holding-usd"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Caixa</span>
@@ -84,29 +84,6 @@
     <div class="row">
         <!-- Left col -->
         <div class="col-md-8">
-            {{-- <!-- BAR CHART -->
-            <div class="card card-success">
-                <div class="card-header">
-                    <h3 class="card-title">Bar Chart</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart">
-                        <canvas id="barChart"
-                            style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
-                    </div>
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card --> --}}
 
             <!-- TABLE: LATEST TRANSACTIONS -->
             @if (count($invoices) > 0)
