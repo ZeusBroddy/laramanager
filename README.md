@@ -49,6 +49,9 @@ $ php artisan storage:link
 # o seed de users irá demorar um pouco a mais, pois é cadastrado cada usuário no Stripe
 $ php artisan migrate —seed
 
+# Para executar a geração de cobranças para o mês atual
+$ php artisan billing:generate
+
 # Usuário administrador criado durante o seed → admin@auma.com e senha 12345678
 ```
 
