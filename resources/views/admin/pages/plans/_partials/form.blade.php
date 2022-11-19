@@ -27,7 +27,7 @@
     <div class="form-group">
         <label for="">Valor:</label>
         <input type="number" step=".01" name="amount" class="form-control @error('amount') is-invalid @enderror"
-            placeholder="Digite o valor" value="{{ $plan->amount_formated ?? old('amount') }}">
+            placeholder="Digite o valor" value="{{ $plan->amount ?? old('amount') }}">
 
         @error('amount')
             <span class="invalid-feedback" role="alert">

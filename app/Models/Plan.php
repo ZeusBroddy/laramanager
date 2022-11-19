@@ -22,18 +22,10 @@ class Plan extends Model
     ];
 
     /**
-     * Get the amount formated
-     */
-    public function getAmountFormatedAttribute()
-    {
-        return $this->amount / 100;
-    }
-
-    /**
      * Get the amount formated to brl
      */
     public function getAmountBrlAttribute()
     {
-        return 'R$ '. number_format($this->amount / 100, 2, ',', ' ');
+        return 'R$ '. number_format($this->amount, 2, ',', ' ');
     }
 }

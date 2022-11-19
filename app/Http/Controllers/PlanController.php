@@ -55,7 +55,7 @@ class PlanController extends Controller
         $this->repository->create([
             'name' => $request->name,
             'description' => $request->description,
-            'amount' => $request->amount * 100,
+            'amount' => $request->amount,
         ]);
 
         return redirect()->route('plans.index')->with([
@@ -91,7 +91,7 @@ class PlanController extends Controller
         $plan->update([
             'name' => $request->name,
             'description' => $request->description,
-            'amount' => $request->amount * 100,
+            'amount' => $request->amount,
         ]);
 
         return redirect()->route('plans.index')->with([

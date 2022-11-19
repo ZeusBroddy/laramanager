@@ -19,7 +19,7 @@ class PlanSeeder extends Seeder
             [
                 'name' => 'Plano mensal',
                 'description' => 'Default',
-                'amount' => 70 * 100
+                'amount' => 105
             ],
         ];
 

@@ -29,7 +29,7 @@ class DashboardController extends Controller
 
         $invoices = Invoice::whereNotNull('paid_at')
             ->with('user')
-            ->take(12)
+            ->take(20)
             ->get();
 
         $incomesInvoice = Invoice::whereNotNull('paid_at')->sum('total') / 100;
